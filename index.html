@@ -338,6 +338,53 @@
   .modal h3 { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 16px; }
   .modal-btns { display: flex; gap: 8px; margin-top: 16px; }
   .modal-btns .btn { flex: 1; margin: 0; padding: 13px; }
+
+  /* ── Time slots ── */
+  .time-slots { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+  .time-slot {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1.5px solid var(--border);
+    background: #FAFAFA;
+  }
+  .time-slot.given { background: var(--teal-light); border-color: #27AE60; }
+  .time-slot-label { font-size: 13px; font-weight: 600; color: var(--muted); white-space: nowrap; min-width: 90px; }
+  .time-slot.given .time-slot-label { color: var(--green-dark); }
+  .time-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-size: 15px;
+    color: var(--text);
+    outline: none;
+    font-family: inherit;
+  }
+  .time-input::placeholder { color: #AAAAAA; }
+
+  /* ── Icon buttons ── */
+  .icon-btn {
+    background: none;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 9px;
+    font-size: 14px;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .icon-btn.red { border-color: #FADBD8; color: var(--red); }
+  .icon-btn:active { opacity: 0.75; }
+
+  /* ── Foster notes display ── */
+  .med-foster-notes {
+    font-size: 12px;
+    color: var(--teal);
+    font-style: italic;
+    margin-top: 3px;
+    line-height: 1.4;
+  }
 </style>
 </head>
 <body>
@@ -517,6 +564,27 @@
     <span class="icon">📋</span>
     <span>Tracker</span>
   </button>
+</div>
+
+<!-- Edit Medication Modal -->
+<div class="modal-overlay" id="edit-med-modal" onclick="closeEditModal(event)">
+  <div class="modal" id="edit-med-box">
+    <h3>Edit Medication</h3>
+    <div style="font-size:13px;color:var(--muted);margin-bottom:14px" id="edit-med-name"></div>
+    <div class="field">
+      <label for="edit-dose-input">Dose (edit to round or adjust)</label>
+      <input type="text" id="edit-dose-input" placeholder="e.g. 0.1 mL">
+    </div>
+    <div class="field">
+      <label for="edit-notes-input">Foster notes</label>
+      <textarea id="edit-notes-input" placeholder="e.g. Give with food, hides pill in treat..."
+        style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:15px;font-family:inherit;resize:vertical;min-height:80px;color:var(--text)"></textarea>
+    </div>
+    <div class="modal-btns">
+      <button class="btn btn-outline" onclick="closeEditModal()">Cancel</button>
+      <button class="btn btn-teal" onclick="saveEditMed()">Save</button>
+    </div>
+  </div>
 </div>
 
 <!-- Add-to-Tracker Modal -->
@@ -1107,8 +1175,8 @@ function renderTracker() {
 
     for (const med of cat.meds) {
       const doses = med.doses[dKey] || {};
-      const amGiven = !!doses.am;
-      const pmGiven = !!doses.pm;
+      const slotCount = getDoseCount(med.freq);
+      const times = doses.times || [];
 
       let dateInfo = '';
       if (med.dateStarted) {
@@ -1120,16 +1188,36 @@ function renderTracker() {
           : `Started ${fmtDateShort(med.dateStarted)}`;
       }
 
+      let slotsHtml = '';
+      for (let i = 0; i < slotCount; i++) {
+        const val = times[i] || '';
+        const given = val.trim() !== '';
+        const label = slotCount === 1 ? 'Time given' : `Dose ${i+1} time`;
+        slotsHtml += `
+          <div class="time-slot ${given ? 'given' : ''}">
+            <span class="time-slot-label">${given ? '✓' : '○'} ${label}</span>
+            <input class="time-input" type="text" placeholder="e.g. 8:30 AM"
+              value="${esc(val)}"
+              onchange="saveDoseTime('${cat.id}','${med.id}',${i},this.value)"
+              onclick="this.select()">
+          </div>`;
+      }
+
       html += `<div class="med-row">
-        <div class="med-name">${esc(med.name)}</div>
-        <div class="med-dose">${esc(med.dose)}</div>
-        <div class="med-sched">${esc(med.freq)}</div>
-        ${dateInfo ? `<div class="med-dates">${esc(dateInfo)}</div>` : ''}
-        <div class="dose-toggles">
-          <button class="dose-toggle ${amGiven ? 'given' : ''}" onclick="toggleDose('${cat.id}','${med.id}','am')">AM</button>
-          <button class="dose-toggle ${pmGiven ? 'given' : ''}" onclick="toggleDose('${cat.id}','${med.id}','pm')">PM</button>
-          <button class="med-del-btn" onclick="delMed('${cat.id}','${med.id}')">✕</button>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div style="flex:1">
+            <div class="med-name">${esc(med.name)}</div>
+            <div class="med-dose">${esc(med.dose)}</div>
+            <div class="med-sched">${esc(med.freq)}</div>
+            ${dateInfo ? `<div class="med-dates">${esc(dateInfo)}</div>` : ''}
+            ${med.notes ? `<div class="med-foster-notes">${esc(med.notes)}</div>` : ''}
+          </div>
+          <div style="display:flex;gap:6px;margin-left:8px;flex-shrink:0">
+            <button class="icon-btn" onclick="openEditMed('${cat.id}','${med.id}')" title="Edit">✏️</button>
+            <button class="icon-btn red" onclick="delMed('${cat.id}','${med.id}')" title="Remove">✕</button>
+          </div>
         </div>
+        <div class="time-slots">${slotsHtml}</div>
       </div>`;
     }
     html += '</div></div>';
@@ -1143,7 +1231,15 @@ function fmtDateShort(isoStr) {
   return `${parseInt(m)}/${parseInt(d)}`;
 }
 
-function toggleDose(catId, medId, tod) {
+function getDoseCount(freq) {
+  if (!freq) return 1;
+  const f = freq.toLowerCase();
+  if (f.includes('two to three') || f.includes('three times')) return 3;
+  if (f.includes('twice')) return 2;
+  return 1;
+}
+
+function saveDoseTime(catId, medId, slotIndex, value) {
   const dKey = dk(viewDate);
   const t = loadTracker();
   const cat = t.cats.find(c => c.id === catId);
@@ -1151,9 +1247,47 @@ function toggleDose(catId, medId, tod) {
   const med = cat.meds.find(m => m.id === medId);
   if (!med) return;
   if (!med.doses[dKey]) med.doses[dKey] = {};
-  med.doses[dKey][tod] = !med.doses[dKey][tod];
+  if (!med.doses[dKey].times) med.doses[dKey].times = [];
+  med.doses[dKey].times[slotIndex] = value.trim();
   saveTracker(t);
+  // Re-render just the slot styling without full re-render (avoids losing focus)
   renderTracker();
+}
+
+// ── Edit medication modal ──
+let _editTarget = null;
+
+function openEditMed(catId, medId) {
+  const t = loadTracker();
+  const cat = t.cats.find(c => c.id === catId);
+  const med = cat?.meds.find(m => m.id === medId);
+  if (!med) return;
+  _editTarget = { catId, medId };
+  document.getElementById('edit-med-name').textContent = med.name;
+  document.getElementById('edit-dose-input').value = med.dose || '';
+  document.getElementById('edit-notes-input').value = med.notes || '';
+  document.getElementById('edit-med-modal').classList.add('open');
+}
+
+function saveEditMed() {
+  if (!_editTarget) return;
+  const t = loadTracker();
+  const cat = t.cats.find(c => c.id === _editTarget.catId);
+  const med = cat?.meds.find(m => m.id === _editTarget.medId);
+  if (!med) return;
+  med.dose  = document.getElementById('edit-dose-input').value.trim();
+  med.notes = document.getElementById('edit-notes-input').value.trim();
+  saveTracker(t);
+  document.getElementById('edit-med-modal').classList.remove('open');
+  _editTarget = null;
+  renderTracker();
+}
+
+function closeEditModal(e) {
+  if (!e || e.target === document.getElementById('edit-med-modal')) {
+    document.getElementById('edit-med-modal').classList.remove('open');
+    _editTarget = null;
+  }
 }
 
 function delCat(catId) {
@@ -1364,22 +1498,23 @@ function exportTrackerExcel() {
     const d = new Date(today); d.setDate(d.getDate() - i);
     dates.push(d);
   }
-  const logHeader = ['Cat', 'Medication', ...dates.flatMap(d => [`${d.getMonth()+1}/${d.getDate()} AM`, `${d.getMonth()+1}/${d.getDate()} PM`])];
+  const logHeader = ['Cat', 'Medication', 'Notes', ...dates.map(d => `${d.getMonth()+1}/${d.getDate()}`)];
   const logRows = [logHeader];
   for (const cat of tracker.cats) {
     for (const med of cat.meds) {
-      const row = [cat.name, med.name];
+      const slotCount = getDoseCount(med.freq);
+      const row = [cat.name, med.name, med.notes || ''];
       for (const d of dates) {
         const key = dk(d);
-        const doses = med.doses[key] || {};
-        row.push(doses.am ? '✓' : '');
-        row.push(doses.pm ? '✓' : '');
+        const times = (med.doses[key] || {}).times || [];
+        const given = times.filter(t => t && t.trim()).join(' / ');
+        row.push(given || '');
       }
       logRows.push(row);
     }
   }
   const wsLog = XLSX.utils.aoa_to_sheet(logRows);
-  wsLog['!cols'] = [{wch:16},{wch:24},...dates.flatMap(() => [{wch:10},{wch:10}])];
+  wsLog['!cols'] = [{wch:16},{wch:24},{wch:28},...dates.map(() => ({wch:14}))];
   XLSX.utils.book_append_sheet(wb, wsLog, 'Dose Log (14 days)');
 
   XLSX.writeFile(wb, `FosterCat_Tracker_${safeFilename(dk(today))}.xlsx`);
@@ -1407,13 +1542,12 @@ function exportTrackerWord() {
         ? `${med.dateStarted} → ${med.dateEnd}${med.numDays ? ' (' + med.numDays + ' days)' : ''}`
         : med.dateStarted ? `Started ${med.dateStarted}` : '';
 
-      let gridCols = dates.map(d => `<th style="font-size:8pt;padding:3px 4px;border:1px solid #ccc;text-align:center">${d.getMonth()+1}/${d.getDate()}<br>AM&nbsp;&nbsp;PM</th>`).join('');
+      let gridCols = dates.map(d => `<th style="font-size:8pt;padding:3px 6px;border:1px solid #ccc;text-align:center">${d.getMonth()+1}/${d.getDate()}</th>`).join('');
       let gridCells = dates.map(d => {
         const key = dk(d);
-        const doses = med.doses[key] || {};
-        const am = doses.am ? '✓' : '&nbsp;';
-        const pm = doses.pm ? '✓' : '&nbsp;';
-        return `<td style="border:1px solid #ccc;text-align:center;padding:3px 4px;font-size:9pt">${am}&nbsp;&nbsp;${pm}</td>`;
+        const times = (med.doses[key] || {}).times || [];
+        const given = times.filter(t => t && t.trim()).join(' / ');
+        return `<td style="border:1px solid #ccc;text-align:center;padding:3px 6px;font-size:9pt">${given || '&nbsp;'}</td>`;
       }).join('');
 
       medsHtml += `
@@ -1421,6 +1555,7 @@ function exportTrackerWord() {
           <div style="font-weight:bold;font-size:11pt">${med.name}</div>
           <div style="color:#555;font-size:10pt">${med.dose} &nbsp;·&nbsp; ${med.freq}</div>
           ${dateInfo ? `<div style="color:#0E6655;font-size:10pt">${dateInfo}</div>` : ''}
+          ${med.notes ? `<div style="color:#7D5A00;font-style:italic;font-size:10pt;margin-top:2px">Note: ${med.notes}</div>` : ''}
           <table style="margin-top:8px;border-collapse:collapse;font-size:9pt"><tr><th style="border:1px solid #ccc;padding:3px 4px"></th>${gridCols}</tr><tr><td style="border:1px solid #ccc;padding:3px 6px;font-size:9pt;font-weight:bold">Dose given</td>${gridCells}</tr></table>
         </div>`;
     }
