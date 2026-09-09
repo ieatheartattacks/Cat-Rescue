@@ -458,6 +458,16 @@
     <button class="btn btn-teal" id="add-tracker-btn" style="display:none;" onclick="openAddModal()">
       ➕ Add to Treatment Tracker
     </button>
+
+    <!-- Calculator export buttons -->
+    <div id="calc-export-btns" style="display:none;">
+      <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:8px;">Export This Calculation</div>
+      <div style="display:flex;gap:8px;margin-bottom:10px;">
+        <button class="btn btn-outline" style="margin:0;flex:1;font-size:14px;padding:11px;" onclick="exportCalcExcel()">📊 Excel</button>
+        <button class="btn btn-outline" style="margin:0;flex:1;font-size:14px;padding:11px;" onclick="exportCalcWord()">📄 Word</button>
+      </div>
+    </div>
+
     <button class="btn btn-outline" onclick="clearCalc()" style="margin-bottom:24px;">
       ✕ Clear Form
     </button>
@@ -479,6 +489,15 @@
     </div>
 
     <div id="tracker-content"></div>
+
+    <!-- Tracker export buttons -->
+    <div style="margin-top:12px;">
+      <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:8px;">Export Tracker</div>
+      <div style="display:flex;gap:8px;margin-bottom:10px;">
+        <button class="btn btn-outline" style="margin:0;flex:1;font-size:14px;padding:11px;" onclick="exportTrackerExcel()">📊 Excel</button>
+        <button class="btn btn-outline" style="margin:0;flex:1;font-size:14px;padding:11px;" onclick="exportTrackerWord()">📄 Word</button>
+      </div>
+    </div>
 
     <button class="btn btn-outline" onclick="clearTracker()" style="margin-top:4px;">
       🗑 Clear All Tracker Data
@@ -936,6 +955,7 @@ function recalc() {
 
   calc.result = { trackerLow, trackerHigh, isRange, freq: d.freq };
   addBtn.style.display = 'block';
+  document.getElementById('calc-export-btns').style.display = 'block';
 }
 
 function clearCalc() {
@@ -949,6 +969,7 @@ function clearCalc() {
   document.getElementById('conc-field').style.display = 'none';
   document.getElementById('results-card').style.display = 'none';
   document.getElementById('add-tracker-btn').style.display = 'none';
+  document.getElementById('calc-export-btns').style.display = 'none';
   calc = { med: null, conc: null, result: null };
 }
 
@@ -1175,6 +1196,252 @@ function esc(str) {
     .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
     .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
+
+// ═══════════════════════════════════════════════════════════
+// SHOW/HIDE CALC EXPORT BUTTONS
+// ═══════════════════════════════════════════════════════════
+function updateCalcExportVisibility() {
+  const exportDiv = document.getElementById('calc-export-btns');
+  if (exportDiv) exportDiv.style.display = calc.result ? 'block' : 'none';
+}
+
+// ═══════════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════════
+function downloadBlob(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename; a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function safeFilename(str) {
+  return (str || 'export').replace(/[^a-z0-9_\-]/gi, '_');
+}
+
+// ═══════════════════════════════════════════════════════════
+// CALCULATOR → EXCEL
+// ═══════════════════════════════════════════════════════════
+function exportCalcExcel() {
+  if (!window.XLSX) { alert('Excel library loading — try again in a moment.'); return; }
+  if (!calc.result) { alert('Calculate a dose first.'); return; }
+
+  const catName    = document.getElementById('cat-name').value || 'Unknown';
+  const dateStart  = document.getElementById('date-started').value || '';
+  const weightVal  = document.getElementById('weight-val').value || '';
+  const weightUnit = document.getElementById('weight-unit').value || '';
+  const medName    = calc.med || '';
+  const concName   = calc.conc || '';
+  const medData    = DB[medName]?.concs[concName];
+  const indication = DB[medName]?.ind || '';
+  const lowVal     = document.getElementById('low-val').textContent;
+  const highVal    = document.getElementById('high-val').textContent;
+  const lowUnit    = document.getElementById('low-unit').textContent;
+  const lowSub     = document.getElementById('low-sub').textContent;
+  const highSub    = document.getElementById('high-sub').textContent;
+  const freq       = document.getElementById('result-freq').textContent;
+  const notes      = document.getElementById('result-notes').textContent;
+  const source     = document.getElementById('result-source').textContent;
+  const kgHint     = document.getElementById('kg-hint').textContent;
+
+  const rows = [
+    ['Field', 'Value'],
+    ['Cat Name', catName],
+    ['Date Started', dateStart],
+    ['Weight', `${weightVal} ${weightUnit}${kgHint ? '  (' + kgHint + ')' : ''}`],
+    ['Medication', medName],
+    ['Concentration / Form', concName],
+    ['Indication', indication],
+    [],
+    ['Low Dose', `${lowVal} ${lowUnit}  ${lowSub}`],
+    ['High Dose', `${highVal} ${lowUnit}  ${highSub}`],
+    ['Frequency', freq],
+    [],
+    ['Notes', notes],
+    ['Source', source],
+    [],
+    ['⚠️ Reference tool only — confirm all doses with your rescue org or veterinarian.', '']
+  ];
+
+  const ws = XLSX.utils.aoa_to_sheet(rows);
+  ws['!cols'] = [{wch: 24}, {wch: 70}];
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Dose Calculation');
+  XLSX.writeFile(wb, `DoseCalc_${safeFilename(catName)}_${safeFilename(medName)}.xlsx`);
+}
+
+// ═══════════════════════════════════════════════════════════
+// CALCULATOR → WORD
+// ═══════════════════════════════════════════════════════════
+function exportCalcWord() {
+  if (!calc.result) { alert('Calculate a dose first.'); return; }
+
+  const catName    = document.getElementById('cat-name').value || 'Unknown';
+  const dateStart  = document.getElementById('date-started').value || '';
+  const weightVal  = document.getElementById('weight-val').value || '';
+  const weightUnit = document.getElementById('weight-unit').value || '';
+  const kgHint     = document.getElementById('kg-hint').textContent;
+  const medName    = calc.med || '';
+  const concName   = calc.conc || '';
+  const indication = DB[medName]?.ind || '';
+  const lowVal     = document.getElementById('low-val').textContent;
+  const highVal    = document.getElementById('high-val').textContent;
+  const lowUnit    = document.getElementById('low-unit').textContent;
+  const lowSub     = document.getElementById('low-sub').textContent;
+  const highSub    = document.getElementById('high-sub').textContent;
+  const freq       = document.getElementById('result-freq').textContent;
+  const notes      = document.getElementById('result-notes').textContent;
+  const source     = document.getElementById('result-source').textContent;
+
+  const row = (label, val) => `<tr><td style="font-weight:bold;padding:6px 12px 6px 0;width:160px;vertical-align:top;color:#555">${label}</td><td style="padding:6px 0">${val}</td></tr>`;
+
+  const html = `
+<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
+<head><meta charset="UTF-8"><title>Dose Calculation</title>
+<style>
+  body { font-family: Calibri, Arial, sans-serif; font-size: 11pt; margin: 1in; }
+  h1 { color: #1A3A5C; font-size: 16pt; border-bottom: 2px solid #0E6655; padding-bottom: 6px; }
+  h2 { color: #0E6655; font-size: 12pt; margin-top: 18px; margin-bottom: 4px; }
+  table { border-collapse: collapse; width: 100%; }
+  .dose-box { display: inline-block; background: #D1F2EB; border-radius: 6px; padding: 8px 16px; margin-right: 12px; text-align: center; }
+  .dose-val { font-size: 18pt; font-weight: bold; color: #0E6655; }
+  .warn { background: #FFF3CD; border-left: 4px solid #D4AC0D; padding: 10px 14px; margin-top: 12px; font-size: 10pt; color: #7D5A00; }
+  .disclaimer { background: #FDEDEC; border-left: 4px solid #C0392B; padding: 10px 14px; margin-top: 16px; font-size: 10pt; color: #641E16; }
+</style></head>
+<body>
+<h1>🐱 Foster Cat Dose Calculation</h1>
+<h2>Cat Information</h2>
+<table>
+  ${row('Cat Name', catName)}
+  ${row('Date Started', dateStart)}
+  ${row('Weight', `${weightVal} ${weightUnit}${kgHint ? ' (' + kgHint + ')' : ''}`)}
+</table>
+<h2>Medication</h2>
+<table>
+  ${row('Medication', medName)}
+  ${row('Concentration / Form', concName)}
+  ${row('Indication', `<em>${indication}</em>`)}
+</table>
+<h2>Calculated Dose</h2>
+<div style="margin:10px 0;">
+  <div class="dose-box"><div style="font-size:9pt;color:#555;margin-bottom:2px">LOW DOSE</div><div class="dose-val">${lowVal} ${lowUnit}</div>${lowSub ? `<div style="font-size:9pt;color:#555">${lowSub}</div>` : ''}</div>
+  <div class="dose-box" style="background:#FAE5D3;"><div style="font-size:9pt;color:#555;margin-bottom:2px">HIGH DOSE</div><div class="dose-val" style="color:#D35400">${highVal} ${lowUnit}</div>${highSub ? `<div style="font-size:9pt;color:#555">${highSub}</div>` : ''}</div>
+</div>
+<table style="margin-top:10px">${row('Frequency', freq)}</table>
+<div class="warn"><strong>Notes:</strong> ${notes}<br><br><em>${source}</em></div>
+<div class="disclaimer">⚠️ Reference tool only. Always confirm doses with your rescue organization or veterinarian before administering.</div>
+</body></html>`;
+
+  const blob = new Blob([html], { type: 'application/msword' });
+  downloadBlob(blob, `DoseCalc_${safeFilename(catName)}_${safeFilename(medName)}.doc`);
+}
+
+// ═══════════════════════════════════════════════════════════
+// TRACKER → EXCEL
+// ═══════════════════════════════════════════════════════════
+function exportTrackerExcel() {
+  if (!window.XLSX) { alert('Excel library loading — try again in a moment.'); return; }
+  const tracker = loadTracker();
+  if (!tracker.cats.length) { alert('No tracker data to export.'); return; }
+
+  const wb = XLSX.utils.book_new();
+
+  // Sheet 1: Summary
+  const sumRows = [['Cat', 'Weight', 'Medication', 'Dose', 'Frequency', 'Date Started', 'Date End', 'Duration (days)']];
+  for (const cat of tracker.cats) {
+    for (const med of cat.meds) {
+      sumRows.push([cat.name, cat.weight || '', med.name, med.dose, med.freq, med.dateStarted || '', med.dateEnd || '', med.numDays || '']);
+    }
+  }
+  const wsSummary = XLSX.utils.aoa_to_sheet(sumRows);
+  wsSummary['!cols'] = [{wch:16},{wch:10},{wch:28},{wch:20},{wch:28},{wch:14},{wch:12},{wch:16}];
+  XLSX.utils.book_append_sheet(wb, wsSummary, 'Medications');
+
+  // Sheet 2: Dose Log (last 14 days)
+  const today = new Date(); today.setHours(0,0,0,0);
+  const dates = [];
+  for (let i = 13; i >= 0; i--) {
+    const d = new Date(today); d.setDate(d.getDate() - i);
+    dates.push(d);
+  }
+  const logHeader = ['Cat', 'Medication', ...dates.flatMap(d => [`${d.getMonth()+1}/${d.getDate()} AM`, `${d.getMonth()+1}/${d.getDate()} PM`])];
+  const logRows = [logHeader];
+  for (const cat of tracker.cats) {
+    for (const med of cat.meds) {
+      const row = [cat.name, med.name];
+      for (const d of dates) {
+        const key = dk(d);
+        const doses = med.doses[key] || {};
+        row.push(doses.am ? '✓' : '');
+        row.push(doses.pm ? '✓' : '');
+      }
+      logRows.push(row);
+    }
+  }
+  const wsLog = XLSX.utils.aoa_to_sheet(logRows);
+  wsLog['!cols'] = [{wch:16},{wch:24},...dates.flatMap(() => [{wch:10},{wch:10}])];
+  XLSX.utils.book_append_sheet(wb, wsLog, 'Dose Log (14 days)');
+
+  XLSX.writeFile(wb, `FosterCat_Tracker_${safeFilename(dk(today))}.xlsx`);
+}
+
+// ═══════════════════════════════════════════════════════════
+// TRACKER → WORD
+// ═══════════════════════════════════════════════════════════
+function exportTrackerWord() {
+  const tracker = loadTracker();
+  if (!tracker.cats.length) { alert('No tracker data to export.'); return; }
+
+  const today = new Date(); today.setHours(0,0,0,0);
+  const dates = [];
+  for (let i = 13; i >= 0; i--) {
+    const d = new Date(today); d.setDate(d.getDate() - i);
+    dates.push(d);
+  }
+
+  let catsHtml = '';
+  for (const cat of tracker.cats) {
+    let medsHtml = '';
+    for (const med of cat.meds) {
+      const dateInfo = med.dateEnd
+        ? `${med.dateStarted} → ${med.dateEnd}${med.numDays ? ' (' + med.numDays + ' days)' : ''}`
+        : med.dateStarted ? `Started ${med.dateStarted}` : '';
+
+      let gridCols = dates.map(d => `<th style="font-size:8pt;padding:3px 4px;border:1px solid #ccc;text-align:center">${d.getMonth()+1}/${d.getDate()}<br>AM&nbsp;&nbsp;PM</th>`).join('');
+      let gridCells = dates.map(d => {
+        const key = dk(d);
+        const doses = med.doses[key] || {};
+        const am = doses.am ? '✓' : '&nbsp;';
+        const pm = doses.pm ? '✓' : '&nbsp;';
+        return `<td style="border:1px solid #ccc;text-align:center;padding:3px 4px;font-size:9pt">${am}&nbsp;&nbsp;${pm}</td>`;
+      }).join('');
+
+      medsHtml += `
+        <div style="margin-bottom:14px;padding:10px 14px;border:1px solid #ddd;border-radius:6px;">
+          <div style="font-weight:bold;font-size:11pt">${med.name}</div>
+          <div style="color:#555;font-size:10pt">${med.dose} &nbsp;·&nbsp; ${med.freq}</div>
+          ${dateInfo ? `<div style="color:#0E6655;font-size:10pt">${dateInfo}</div>` : ''}
+          <table style="margin-top:8px;border-collapse:collapse;font-size:9pt"><tr><th style="border:1px solid #ccc;padding:3px 4px"></th>${gridCols}</tr><tr><td style="border:1px solid #ccc;padding:3px 6px;font-size:9pt;font-weight:bold">Dose given</td>${gridCells}</tr></table>
+        </div>`;
+    }
+    catsHtml += `<h2 style="color:white;background:#1A3A5C;padding:8px 14px;border-radius:6px;margin-top:20px">🐱 ${cat.name}${cat.weight ? '  ·  ' + cat.weight : ''}</h2>${medsHtml}`;
+  }
+
+  const html = `
+<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
+<head><meta charset="UTF-8"><title>Treatment Tracker</title>
+<style>body{font-family:Calibri,Arial,sans-serif;font-size:11pt;margin:0.75in;}h1{color:#1A3A5C;font-size:16pt;border-bottom:2px solid #0E6655;padding-bottom:6px;}</style>
+</head><body>
+<h1>🐱 Foster Cat Treatment Tracker</h1>
+<p style="color:#555;font-size:10pt">Exported: ${today.toLocaleDateString()}  &nbsp;·&nbsp; Dose log shows last 14 days (✓ = given)</p>
+${catsHtml}
+<p style="margin-top:24px;font-size:9pt;color:#999">⚠️ Reference tool only. Always confirm doses with your rescue organization or veterinarian.</p>
+</body></html>`;
+
+  const blob = new Blob([html], { type: 'application/msword' });
+  downloadBlob(blob, `FosterCat_Tracker_${safeFilename(dk(today))}.doc`);
+}
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </body>
 </html>
