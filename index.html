@@ -537,8 +537,13 @@
 
     <div id="tracker-content"></div>
 
+    <!-- Add custom item -->
+    <button class="btn btn-navy" onclick="openCustomModal()" style="margin-top:4px;">
+      ➕ Add Custom Reminder to Tracker
+    </button>
+
     <!-- Tracker export buttons -->
-    <div style="margin-top:12px;">
+    <div style="margin-top:4px;">
       <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:8px;">Export Tracker</div>
       <div style="display:flex;gap:8px;margin-bottom:10px;">
         <button class="btn btn-outline" style="margin:0;flex:1;font-size:14px;padding:11px;" onclick="exportTrackerExcel()">📊 Excel</button>
@@ -564,6 +569,52 @@
     <span class="icon">📋</span>
     <span>Tracker</span>
   </button>
+</div>
+
+<!-- Custom Item Modal -->
+<div class="modal-overlay" id="custom-modal" onclick="closeCustomModal(event)">
+  <div class="modal">
+    <h3>Add Custom Reminder</h3>
+    <div class="field">
+      <label for="custom-cat">Cat name</label>
+      <input type="text" id="custom-cat" placeholder="e.g. Biscuit" list="existing-cats" autocomplete="off">
+      <datalist id="existing-cats"></datalist>
+    </div>
+    <div class="field">
+      <label for="custom-name">What to give / do</label>
+      <input type="text" id="custom-name" placeholder="e.g. Probiotics, Lysine, Eye drops, Weight check">
+    </div>
+    <div class="field">
+      <label for="custom-dose">Dose or instructions (optional)</label>
+      <input type="text" id="custom-dose" placeholder="e.g. 1/4 tsp in food, 1 pump on paw">
+    </div>
+    <div class="field">
+      <label for="custom-freq">Frequency</label>
+      <div class="sel-wrap">
+        <select id="custom-freq">
+          <option value="Once daily">Once daily</option>
+          <option value="Twice daily">Twice daily</option>
+          <option value="Three times daily">Three times daily</option>
+          <option value="As needed">As needed</option>
+          <option value="Weekly">Weekly</option>
+          <option value="Other">Other (see notes)</option>
+        </select>
+      </div>
+    </div>
+    <div class="field">
+      <label for="custom-notes">Notes (optional)</label>
+      <textarea id="custom-notes" placeholder="Any extra reminders..."
+        style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:15px;font-family:inherit;resize:vertical;min-height:60px;color:var(--text)"></textarea>
+    </div>
+    <div class="field">
+      <label for="custom-days">Duration in days (optional)</label>
+      <input type="number" id="custom-days" placeholder="Leave blank if ongoing" min="1" inputmode="numeric">
+    </div>
+    <div class="modal-btns">
+      <button class="btn btn-outline" onclick="closeCustomModal()">Cancel</button>
+      <button class="btn btn-teal" onclick="confirmCustomItem()">Add</button>
+    </div>
+  </div>
 </div>
 
 <!-- Edit Medication Modal -->
@@ -836,6 +887,119 @@ const DB = {
     concs: {
       "Ready to use (oral liquid)": { v:1, t:"L", lo:5, hi:10, u:"mL/kg", freq:"Every 4–6 hours, or as tolerated — can offer freely", notes:"Warm to body temperature. May alternate with KMR for bottle babies. Give via syringe if needed. Refrigerate after opening; discard after 3 days. Dose shown is per feeding.", src:"Virbac product guidelines; standard veterinary nutritional support protocols" }
     }
+  },
+  // ── Vaccines ─────────────────────────────────────────────
+  "FVRCP — Intranasal (Rhinotracheitis-Calici + Panleukopenia)": {
+    cat: "Vaccines",
+    ind: "Core vaccine: feline herpesvirus (rhinotracheitis), calicivirus, and panleukopenia — fast local immunity",
+    concs: {
+      "Intranasal — 1 vial mixed per label": {
+        v:1, t:"L", lo:0, hi:0, u:"fixed",
+        freq:"Initial series: 2 doses 3–4 weeks apart; booster at 1 year",
+        fixedNote:"FIXED DOSE — not weight-based. Administer half the reconstituted vial into each nostril. Keep head level for ~30 seconds afterward.",
+        notes:"Intranasal form provides faster local immunity — preferred for high-risk shelter and foster kittens 4+ weeks old. Mild sneezing for 5–7 days after is normal and expected. Do NOT inject — intranasal use only. Mix per label immediately before use.",
+        src:"AAFP Feline Vaccination Guidelines 2020; Scherk MA et al., J Feline Med Surg 2013"
+      }
+    }
+  },
+  "FVRCP — Injectable (Rhinotracheitis-Calici + Panleukopenia)": {
+    cat: "Vaccines",
+    ind: "Core vaccine: feline herpesvirus, calicivirus, and panleukopenia prevention",
+    concs: {
+      "Subcutaneous injection — 1 mL per dose": {
+        v:1, t:"L", lo:0, hi:0, u:"fixed",
+        freq:"Initial series: 2–3 doses every 3–4 weeks starting at 6–8 weeks old; booster at 1 year",
+        fixedNote:"FIXED DOSE — 1 mL subcutaneously regardless of weight. Inject under the skin at the back of the neck or between shoulder blades.",
+        notes:"Safe for kittens 6+ weeks old. Mild soreness at injection site is normal. Requires 2–3 doses spaced 3–4 weeks apart to complete the initial series.",
+        src:"AAFP Feline Vaccination Guidelines 2020"
+      }
+    }
+  },
+  "FeLV (Feline Leukemia Virus) — Injectable": {
+    cat: "Vaccines",
+    ind: "Feline leukemia virus prevention — recommended for all kittens and cats with any outdoor or shelter exposure",
+    concs: {
+      "Subcutaneous injection — 1 mL per dose": {
+        v:1, t:"L", lo:0, hi:0, u:"fixed",
+        freq:"Initial series: 2 doses 3–4 weeks apart starting at 8+ weeks old; annual booster for at-risk cats",
+        fixedNote:"FIXED DOSE — 1 mL subcutaneously. Per AAFP guidelines, inject at the distal left rear limb to allow monitoring for injection-site reactions.",
+        notes:"Recommended for all kittens — risk can be reassessed in fully indoor adults. Minimum age 8 weeks. Two doses required to complete the initial series. Specific injection site (left rear leg) is important.",
+        src:"AAFP Feline Vaccination Guidelines 2020"
+      }
+    }
+  },
+  "Rabies — Injectable": {
+    cat: "Vaccines",
+    ind: "Rabies prevention — core vaccine; legally required in most US states",
+    concs: {
+      "Subcutaneous or intramuscular injection — 1 mL": {
+        v:1, t:"L", lo:0, hi:0, u:"fixed",
+        freq:"1 dose at 12+ weeks old; booster at 1 year; then every 1 or 3 years per product label",
+        fixedNote:"FIXED DOSE — must be administered by a licensed veterinarian in most US states. Fosters cannot give this vaccine. Document administration in rescue records.",
+        notes:"⚠️ Licensed veterinarian required in most states — fosters cannot administer rabies vaccine. Minimum age 12 weeks. Per AAFP site guidelines, inject at the right rear limb.",
+        src:"AAFP Feline Vaccination Guidelines 2020; state rabies statutes vary"
+      }
+    }
+  },
+  // ── Topicals ─────────────────────────────────────────────
+  "Clotrimazole 1% Cream": {
+    cat: "Topicals",
+    ind: "Ringworm (dermatophytosis / Microsporum canis) — topical antifungal for localized lesions",
+    concs: {
+      "1% Cream (OTC — Lotrimin or generic)": {
+        v:1, t:"L", lo:0, hi:0, u:"fixed",
+        freq:"Once or twice daily for 3–4 weeks, or until lesion resolves",
+        fixedNote:"TOPICAL — apply a thin layer directly to the lesion. Rub in gently. Wear gloves — ringworm is contagious to people.",
+        notes:"OTC antifungal. Best for small, localized lesions. For widespread infection, combine with oral itraconazole. Clean area before applying. Use an e-collar to prevent licking. Treat the environment too — vacuum daily, wash bedding, wipe hard surfaces with dilute bleach.",
+        src:"Moriello KA, J Feline Med Surg 2014; Plumb's Veterinary Drug Handbook, 10th Ed."
+      }
+    }
+  },
+  "Miconazole 2% Cream or Spray": {
+    cat: "Topicals",
+    ind: "Ringworm (dermatophytosis), superficial fungal skin infections, Malassezia (yeast)",
+    concs: {
+      "2% Cream or Spray (OTC)": {
+        v:1, t:"L", lo:0, hi:0, u:"fixed",
+        freq:"Twice daily for 3–4 weeks, or until resolved",
+        fixedNote:"TOPICAL — apply thin layer or spray to lesion. Wear gloves — ringworm is contagious to people. Use e-collar to prevent licking.",
+        notes:"Alternative to clotrimazole. Spray form is useful for cats that resist cream application. Also effective against yeast (Malassezia) skin infections. Treat environment concurrently.",
+        src:"Moriello KA, J Feline Med Surg 2014; Plumb's Veterinary Drug Handbook, 10th Ed."
+      }
+    }
+  },
+  "Lime Sulfur Dip (LymDyp)": {
+    cat: "Topicals",
+    ind: "Ringworm (dermatophytosis) — whole-body topical treatment; most effective topical for widespread infection",
+    concs: {
+      "Diluted solution — 1 part lime sulfur to 32 parts warm water": {
+        v:1, t:"L", lo:0, hi:0, u:"fixed",
+        freq:"Every 5–7 days for a minimum of 6 treatments",
+        fixedNote:"TOPICAL DIP — apply diluted solution to entire body. Leave on — do not rinse. Keep cat warm until completely dry. Wear gloves and old clothes — stains everything yellow and has a strong sulfur smell.",
+        notes:"⚠️ Work in a well-ventilated area — strong sulfur odor. Use e-collar to prevent licking until fully dry. Do NOT use on kittens under 8 weeks — check with rescue coordinator first. Clip fur over lesions before dipping for better contact. Stains skin, fabric, and surfaces.",
+        src:"Moriello KA, J Feline Med Surg 2014; Newbury S et al., ACVD Ringworm Treatment Guidelines"
+      }
+    }
+  },
+  "Revolution (Selamectin) — Topical": {
+    cat: "Topicals",
+    ind: "Fleas, ear mites, heartworm prevention, roundworms, hookworms — monthly broad-spectrum parasiticide",
+    concs: {
+      "Kitten / Small Cat — 15 mg (under 5 lbs / 2.3 kg)": {
+        v:1, t:"L", lo:0, hi:0, u:"fixed",
+        freq:"Once monthly",
+        fixedNote:"TOPICAL — apply entire tube contents to bare skin at the base of the neck, in front of the shoulder blades. Part the fur, apply directly to skin. Do not rub in. Keep dry for 2 hours.",
+        notes:"Safe for kittens 8+ weeks old and pregnant or nursing queens. Prescription required. Separate cats until fully dry to prevent grooming each other. Use the kitten (15 mg) tube for cats under 5 lbs.",
+        src:"Zoetis Revolution prescribing information; Plumb's Veterinary Drug Handbook, 10th Ed."
+      },
+      "Cat — 45 mg (5–15 lbs / 2.3–6.8 kg)": {
+        v:1, t:"L", lo:0, hi:0, u:"fixed",
+        freq:"Once monthly",
+        fixedNote:"TOPICAL — apply entire tube contents to bare skin at the base of the neck, in front of the shoulder blades. Part the fur, apply directly to skin. Do not rub in. Keep dry for 2 hours.",
+        notes:"Safe for cats 8+ weeks old. Prescription required. Separate cats until fully dry to prevent grooming each other.",
+        src:"Zoetis Revolution prescribing information; Plumb's Veterinary Drug Handbook, 10th Ed."
+      }
+    }
   }
 };
 
@@ -926,13 +1090,23 @@ function onMedChange() {
   indEl.style.display = 'block';
 
   const concSel = document.getElementById('conc-select');
+  const concKeys = Object.keys(data.concs);
   concSel.innerHTML = '<option value="">— Choose concentration —</option>';
-  Object.keys(data.concs).forEach(c => {
+  concKeys.forEach(c => {
     const o = document.createElement('option');
     o.value = o.textContent = c;
     concSel.appendChild(o);
   });
-  document.getElementById('conc-field').style.display = 'block';
+
+  if (concKeys.length === 1) {
+    // Only one option — auto-select it and hide the dropdown
+    concSel.value = concKeys[0];
+    document.getElementById('conc-field').style.display = 'none';
+    calc.conc = concKeys[0];
+    recalc();
+  } else {
+    document.getElementById('conc-field').style.display = 'block';
+  }
 }
 
 function onConcChange() {
@@ -1329,6 +1503,72 @@ function esc(str) {
   return String(str ?? '')
     .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
     .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+// ═══════════════════════════════════════════════════════════
+// CUSTOM TRACKER ITEM
+// ═══════════════════════════════════════════════════════════
+function openCustomModal() {
+  // Populate cat datalist with existing cats
+  const tracker = loadTracker();
+  const dl = document.getElementById('existing-cats');
+  dl.innerHTML = tracker.cats.map(c => `<option value="${esc(c.name)}">`).join('');
+  document.getElementById('custom-cat').value = '';
+  document.getElementById('custom-name').value = '';
+  document.getElementById('custom-dose').value = '';
+  document.getElementById('custom-freq').value = 'Once daily';
+  document.getElementById('custom-notes').value = '';
+  document.getElementById('custom-days').value = '';
+  document.getElementById('custom-modal').classList.add('open');
+}
+
+function closeCustomModal(e) {
+  if (!e || e.target === document.getElementById('custom-modal')) {
+    document.getElementById('custom-modal').classList.remove('open');
+  }
+}
+
+function confirmCustomItem() {
+  const catName = document.getElementById('custom-cat').value.trim();
+  const itemName = document.getElementById('custom-name').value.trim();
+  if (!catName) { alert('Please enter a cat name.'); return; }
+  if (!itemName) { alert('Please enter what to give or do.'); return; }
+
+  const dose    = document.getElementById('custom-dose').value.trim();
+  const freq    = document.getElementById('custom-freq').value;
+  const notes   = document.getElementById('custom-notes').value.trim();
+  const numDays = parseInt(document.getElementById('custom-days').value) || null;
+  const dateStarted = dk(new Date());
+  let dateEnd = null;
+  if (numDays) {
+    const ed = new Date(); ed.setDate(ed.getDate() + numDays - 1);
+    dateEnd = dk(ed);
+  }
+
+  const tracker = loadTracker();
+  let cat = tracker.cats.find(c => c.name.toLowerCase() === catName.toLowerCase());
+  if (!cat) {
+    cat = { id:'cat_'+Date.now(), name:catName, weight:'', color:COLORS[tracker.cats.length % COLORS.length], meds:[] };
+    tracker.cats.push(cat);
+  }
+  cat.meds.push({
+    id: 'med_'+Date.now(),
+    name: itemName,
+    conc: '',
+    dose: dose,
+    freq: freq,
+    notes: notes,
+    dateStarted,
+    dateEnd,
+    numDays,
+    doses: {},
+    isCustom: true
+  });
+
+  saveTracker(tracker);
+  document.getElementById('custom-modal').classList.remove('open');
+  renderTracker();
+  switchTab('tracker');
 }
 
 // ═══════════════════════════════════════════════════════════
