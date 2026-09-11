@@ -1136,8 +1136,9 @@ function recalc() {
     document.getElementById('fixed-dose-display').innerHTML = `<div class="note-box alert" style="margin-bottom:10px">${esc(d.fixedNote)}</div>`;
     document.getElementById('fixed-dose-display').style.display = 'block';
     document.getElementById('weight-dose-display').style.display = 'none';
-    addBtn.style.display = 'none';
-    calc.result = null;
+    calc.result = { trackerLow: '1 dose', trackerHigh: '1 dose', isRange: false, freq: d.freq };
+    addBtn.style.display = 'block';
+    document.getElementById('calc-export-btns').style.display = 'block';
     return;
   }
 
