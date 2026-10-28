@@ -1001,6 +1001,67 @@ const DB = {
       }
     }
   }
+,
+
+  // ── PAIN & ANTI-INFLAMMATORY ──────────────────────────────
+  "Buprenorphine (Buprenex)": {
+    cat: "Pain / Anti-inflammatory",
+    ind: "Moderate to severe pain (post-surgical, injury, dental pain)",
+    concs: {
+      "0.3 mg/mL — injectable / oral transmucosal": {
+        v: 0.3, t: "L", lo: 0.01, hi: 0.02, u: "mg/kg",
+        freq: "Every 6–8 hours",
+        notes: "Administer by squirting the liquid inside the cheek/under the tongue (oral transmucosal route). Do NOT swallow — hold in mouth for 1–2 minutes. Prescription required. Controlled substance. Do not use in cats that are sedated or have breathing problems.",
+        src: "Plumb's Veterinary Drug Handbook, 10th Ed.; IVAPM feline pain management guidelines"
+      }
+    }
+  },
+
+  "Meloxicam (Metacam)": {
+    cat: "Pain / Anti-inflammatory",
+    ind: "Pain and inflammation — post-surgical, musculoskeletal, dental",
+    concs: {
+      "0.5 mg/mL oral suspension": {
+        v: 0.5, t: "L", lo: 0.05, hi: 0.1, u: "mg/kg",
+        freq: "Once daily — give with food",
+        notes: "Give with food to reduce stomach upset. Prescription required. NSAID — do NOT use in cats with kidney disease, dehydration, or those already on steroids (prednisone, dexamethasone). Do not use long-term without vet monitoring. The first dose may be slightly higher per your vet's instructions; follow their exact directions.",
+        src: "Boehringer Ingelheim Metacam prescribing information; Plumb's Veterinary Drug Handbook, 10th Ed."
+      }
+    }
+  },
+
+  "Gabapentin": {
+    cat: "Pain / Anti-inflammatory",
+    ind: "Neuropathic (nerve) pain, anxiety, and sedation for vet visits",
+    concs: {
+      "100 mg/mL oral liquid (compounded)": {
+        v: 100, t: "L", lo: 5, hi: 10, u: "mg/kg",
+        freq: "Every 8–12 hours",
+        notes: "Can cause sedation — this is expected. Do not use liquid made for humans (may contain xylitol, which is toxic to cats). Use only veterinary compounded liquid or open capsules. Prescription required. Taper dose slowly when stopping long-term use.",
+        src: "Plumb's Veterinary Drug Handbook, 10th Ed.; IVAPM feline pain guidelines"
+      },
+      "100 mg capsule": {
+        v: 100, t: "T", lo: 5, hi: 10, u: "mg/kg",
+        freq: "Every 8–12 hours",
+        notes: "Capsule can be opened and mixed with a small amount of food. Can cause sedation — this is expected. Prescription required. Taper dose slowly when stopping long-term use.",
+        src: "Plumb's Veterinary Drug Handbook, 10th Ed.; IVAPM feline pain guidelines"
+      }
+    }
+  },
+
+  "Robenacoxib (Onsior)": {
+    cat: "Pain / Anti-inflammatory",
+    ind: "Short-term pain and inflammation after surgery or injury",
+    concs: {
+      "6 mg tablet": {
+        v: 6, t: "T", lo: 1, hi: 2.4, u: "mg/kg",
+        freq: "Once daily — give with food",
+        notes: "Give with food to reduce stomach upset. Prescription required. NSAID approved for short-term use only (up to 3 days for acute pain). Do NOT use in cats with kidney disease, dehydration, or those already on steroids. Do not combine with other NSAIDs or meloxicam.",
+        src: "Elanco Onsior prescribing information; Plumb's Veterinary Drug Handbook, 10th Ed."
+      }
+    }
+  },
+
 };
 
 // Cat colors
