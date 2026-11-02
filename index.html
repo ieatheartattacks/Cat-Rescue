@@ -838,7 +838,7 @@ function recalc() {
   document.getElementById('notes-section').style.display = 'block';
   document.getElementById('result-source').textContent = 'Source: ' + d.src;
   if (d.u === 'fixed') {
-    document.getElementById('fixed-dose-display').innerHTML = `<div class="note-box alert" style="margin-bottom:10px">${esc(d.fixedNote)}</div>`;
+    document.getElementById('fixed-dose-display').innerHTML = `<div class="note-box alert" style="margin-bottom:10px">${esc(d.fixedNote)}</div><div class="result-row"><span class="result-lbl">Frequency</span><span class="result-val">${esc(d.freq)}</span></div>`;
     document.getElementById('fixed-dose-display').style.display = 'block';
     document.getElementById('weight-dose-display').style.display = 'none';
     calc.result = { trackerLow: '1 dose', trackerHigh: '1 dose', isRange: false, freq: d.freq };
