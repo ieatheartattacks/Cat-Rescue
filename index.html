@@ -32,118 +32,31 @@
     display: flex;
     flex-direction: column;
   }
-
-  /* ── Header ── */
-  .app-header {
-    background: var(--navy);
-    color: white;
-    padding: 12px 16px 10px;
-    text-align: center;
-    flex-shrink: 0;
-  }
+  .app-header { background: var(--navy); color: white; padding: 12px 16px 10px; text-align: center; flex-shrink: 0; }
   .app-header h1 { font-size: 17px; font-weight: 700; letter-spacing: -0.2px; }
   .app-header p  { font-size: 11px; opacity: 0.7; margin-top: 2px; }
-
-  /* ── Tab bar ── */
-  .tab-bar {
-    display: flex;
-    background: white;
-    border-top: 1px solid var(--border);
-    flex-shrink: 0;
-    padding-bottom: env(safe-area-inset-bottom, 0px);
-  }
-  .tab-btn {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 7px 4px;
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-size: 11px;
-    color: var(--muted);
-    gap: 2px;
-  }
+  .tab-bar { display: flex; background: white; border-top: 1px solid var(--border); flex-shrink: 0; padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .tab-btn { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 7px 4px; border: none; background: none; cursor: pointer; font-size: 11px; color: var(--muted); gap: 2px; }
   .tab-btn .icon { font-size: 22px; line-height: 1; }
   .tab-btn.active { color: var(--teal); font-weight: 600; }
-
-  /* ── Screens ── */
   .screens { flex: 1; overflow: hidden; position: relative; }
-  .screen {
-    position: absolute;
-    inset: 0;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    padding: 12px 12px 80px;
-    display: none;
-  }
+  .screen { position: absolute; inset: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 12px 12px 80px; display: none; }
   .screen.active { display: block; }
-
-  /* ── Cards ── */
-  .card {
-    background: var(--card);
-    border-radius: 12px;
-    padding: 14px;
-    margin-bottom: 12px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-  }
-  .card-title {
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.6px;
-    color: var(--teal);
-    margin-bottom: 10px;
-  }
-
-  /* ── Form fields ── */
+  .card { background: var(--card); border-radius: 12px; padding: 14px; margin-bottom: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  .card-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--teal); margin-bottom: 10px; }
   .field { margin-bottom: 11px; }
   .field:last-child { margin-bottom: 0; }
   .field label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 4px; }
-  .field input,
-  .field select {
-    width: 100%;
-    padding: 10px 12px;
-    border: 1.5px solid var(--border);
-    border-radius: 8px;
-    font-size: 16px;
-    color: var(--text);
-    background: white;
-    -webkit-appearance: none;
-    appearance: none;
-  }
-  .field input:focus, .field select:focus {
-    outline: none;
-    border-color: var(--teal);
-    box-shadow: 0 0 0 3px rgba(14,102,85,0.12);
-  }
-  /* Custom select arrow */
+  .field input, .field select { width: 100%; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 16px; color: var(--text); background: white; -webkit-appearance: none; appearance: none; }
+  .field input:focus, .field select:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 3px rgba(14,102,85,0.12); }
   .sel-wrap { position: relative; }
-  .sel-wrap::after {
-    content: '▾';
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
-    color: var(--muted);
-    font-size: 14px;
-  }
+  .sel-wrap::after { content: '▾'; position: absolute; right: 12px; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--muted); font-size: 14px; }
   .sel-wrap select { padding-right: 30px; }
-
-  /* Weight row */
   .weight-row { display: flex; gap: 8px; align-items: flex-end; }
   .weight-row .field:first-child { flex: 1; }
   .weight-row .field:last-child { width: 118px; }
-
-  /* kg hint */
   .kg-hint { font-size: 12px; color: var(--teal); margin-top: 4px; font-weight: 500; }
-
-  /* ── Indication ── */
   .indication { font-size: 14px; color: var(--teal); font-style: italic; line-height: 1.4; margin: 4px 0 10px; }
-
-  /* ── Dose grid ── */
   .dose-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0 12px; }
   .dose-box { border-radius: 10px; padding: 12px 10px; text-align: center; }
   .dose-box.low  { background: var(--teal-light); }
@@ -154,359 +67,114 @@
   .dose-box.high .dose-box-val { color: var(--orange); }
   .dose-box-unit { font-size: 12px; color: var(--muted); margin-top: 2px; }
   .dose-box-sub  { font-size: 11px; color: var(--muted); margin-top: 3px; }
-
-  /* ── Result rows ── */
-  .result-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 7px 0;
-    border-bottom: 1px solid #EAECEE;
-    gap: 8px;
-  }
+  .result-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 7px 0; border-bottom: 1px solid #EAECEE; gap: 8px; }
   .result-row:last-child { border-bottom: none; padding-bottom: 0; }
   .result-lbl { font-size: 13px; color: var(--muted); flex-shrink: 0; width: 90px; }
   .result-val { font-size: 14px; font-weight: 600; text-align: right; flex: 1; }
-
-  /* ── Notes ── */
-  .note-box {
-    font-size: 13px;
-    line-height: 1.55;
-    padding: 10px 12px;
-    border-radius: 8px;
-    background: var(--warn-bg);
-    border-left: 3px solid #D4AC0D;
-    color: var(--warn-tx);
-    margin-top: 4px;
-  }
-  .note-box.alert {
-    background: #FDFEFE;
-    border-left-color: var(--red);
-    color: #641E16;
-    background: #FDEDEC;
-  }
+  .note-box { font-size: 13px; line-height: 1.55; padding: 10px 12px; border-radius: 8px; background: var(--warn-bg); border-left: 3px solid #D4AC0D; color: var(--warn-tx); margin-top: 4px; }
+  .note-box.alert { background: #FDEDEC; border-left-color: var(--red); color: #641E16; }
   .source-txt { font-size: 11px; color: var(--muted); font-style: italic; margin-top: 8px; line-height: 1.4; }
-
-  /* ── Dose basis ── */
   .dose-basis { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
-
-  /* ── Buttons ── */
-  .btn {
-    display: block;
-    width: 100%;
-    padding: 14px;
-    border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-    text-align: center;
-    margin-bottom: 10px;
-  }
+  .btn { display: block; width: 100%; padding: 14px; border: none; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; text-align: center; margin-bottom: 10px; }
   .btn:active { opacity: 0.82; transform: scale(0.99); }
   .btn-teal    { background: var(--teal); color: white; }
   .btn-navy    { background: var(--navy); color: white; }
   .btn-red     { background: var(--red);  color: white; }
   .btn-outline { background: none; border: 2px solid var(--border); color: var(--text); }
-
-  /* ── Disclaimer ── */
-  .disclaimer {
-    background: var(--warn-bg);
-    border: 1px solid #F0C040;
-    border-radius: 10px;
-    padding: 10px 13px;
-    font-size: 12px;
-    color: var(--warn-tx);
-    margin-bottom: 12px;
-    text-align: center;
-    line-height: 1.5;
-  }
-
-  /* ── Tracker date nav ── */
-  .date-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: var(--navy);
-    color: white;
-    padding: 10px 12px;
-    border-radius: 12px;
-    margin-bottom: 12px;
-  }
-  .date-nav-arrow {
-    background: rgba(255,255,255,0.18);
-    border: none;
-    color: white;
-    font-size: 22px;
-    width: 38px;
-    height: 38px;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1;
-  }
+  .disclaimer { background: var(--warn-bg); border: 1px solid #F0C040; border-radius: 10px; padding: 10px 13px; font-size: 12px; color: var(--warn-tx); margin-bottom: 12px; text-align: center; line-height: 1.5; }
+  .date-nav { display: flex; align-items: center; justify-content: space-between; background: var(--navy); color: white; padding: 10px 12px; border-radius: 12px; margin-bottom: 12px; }
+  .date-nav-arrow { background: rgba(255,255,255,0.18); border: none; color: white; font-size: 22px; width: 38px; height: 38px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; line-height: 1; }
   .date-nav-arrow:active { background: rgba(255,255,255,0.3); }
   .date-nav-center { text-align: center; }
   .date-nav-day  { font-size: 17px; font-weight: 700; }
   .date-nav-date { font-size: 12px; opacity: 0.75; margin-top: 2px; }
-
-  /* ── Cat cards in tracker ── */
   .cat-card { margin-bottom: 12px; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
-  .cat-hdr {
-    padding: 10px 14px;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+  .cat-hdr { padding: 10px 14px; color: white; display: flex; justify-content: space-between; align-items: center; }
   .cat-hdr-name { font-size: 15px; font-weight: 700; }
-  .cat-hdr-del {
-    background: none;
-    border: none;
-    color: rgba(255,255,255,0.7);
-    font-size: 18px;
-    cursor: pointer;
-    padding: 2px 6px;
-    line-height: 1;
-  }
+  .cat-hdr-del { background: none; border: none; color: rgba(255,255,255,0.7); font-size: 18px; cursor: pointer; padding: 2px 6px; line-height: 1; }
   .cat-body { background: white; }
-  .med-row {
-    padding: 11px 14px;
-    border-bottom: 1px solid #F0F0F0;
-  }
+  .med-row { padding: 11px 14px; border-bottom: 1px solid #F0F0F0; }
   .med-row:last-child { border-bottom: none; }
   .med-name { font-size: 14px; font-weight: 600; }
   .med-dose { font-size: 13px; color: var(--muted); margin-top: 1px; }
   .med-sched { font-size: 12px; color: var(--muted); }
   .med-dates { font-size: 12px; color: var(--teal); font-weight: 500; margin-top: 2px; }
-
   .dose-toggles { display: flex; gap: 8px; margin-top: 9px; }
-  .dose-toggle {
-    flex: 1;
-    padding: 9px 6px;
-    border-radius: 8px;
-    border: 2px solid var(--border);
-    background: none;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    color: var(--muted);
-  }
-  .dose-toggle.given {
-    background: var(--green);
-    border-color: #27AE60;
-    color: var(--green-dark);
-  }
+  .dose-toggle { flex: 1; padding: 9px 6px; border-radius: 8px; border: 2px solid var(--border); background: none; font-size: 14px; font-weight: 600; cursor: pointer; color: var(--muted); }
+  .dose-toggle.given { background: var(--green); border-color: #27AE60; color: var(--green-dark); }
   .dose-toggle.given::before { content: '✓ '; }
-  .med-del-btn {
-    flex: 0;
-    padding: 9px 13px;
-    border-radius: 8px;
-    border: 2px solid #FADBD8;
-    background: none;
-    color: var(--red);
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-  }
-
-  /* ── Empty state ── */
+  .med-del-btn { flex: 0; padding: 9px 13px; border-radius: 8px; border: 2px solid #FADBD8; background: none; color: var(--red); font-size: 14px; font-weight: 700; cursor: pointer; }
   .empty-state { text-align: center; padding: 40px 20px; color: var(--muted); }
   .empty-icon  { font-size: 52px; margin-bottom: 12px; }
   .empty-state p { font-size: 15px; line-height: 1.6; }
-
-  /* ── Modal ── */
-  .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.45);
-    display: none;
-    align-items: flex-end;
-    z-index: 200;
-  }
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); display: none; align-items: flex-end; z-index: 200; }
   .modal-overlay.open { display: flex; }
-  .modal {
-    background: white;
-    border-radius: 20px 20px 0 0;
-    padding: 20px 20px calc(20px + env(safe-area-inset-bottom, 0px));
-    width: 100%;
-    max-height: 85vh;
-    overflow-y: auto;
-  }
+  .modal { background: white; border-radius: 20px 20px 0 0; padding: 20px 20px calc(20px + env(safe-area-inset-bottom, 0px)); width: 100%; max-height: 85vh; overflow-y: auto; }
   .modal h3 { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 16px; }
   .modal-btns { display: flex; gap: 8px; margin-top: 16px; }
   .modal-btns .btn { flex: 1; margin: 0; padding: 13px; }
-
-  /* ── Time slots ── */
   .time-slots { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
-  .time-slot {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 10px;
-    border-radius: 8px;
-    border: 1.5px solid var(--border);
-    background: #FAFAFA;
-  }
+  .time-slot { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 8px; border: 1.5px solid var(--border); background: #FAFAFA; }
   .time-slot.given { background: var(--teal-light); border-color: #27AE60; }
   .time-slot-label { font-size: 13px; font-weight: 600; color: var(--muted); white-space: nowrap; min-width: 90px; }
   .time-slot.given .time-slot-label { color: var(--green-dark); }
-  .time-input {
-    flex: 1;
-    border: none;
-    background: transparent;
-    font-size: 15px;
-    color: var(--text);
-    outline: none;
-    font-family: inherit;
-  }
+  .time-input { flex: 1; border: none; background: transparent; font-size: 15px; color: var(--text); outline: none; font-family: inherit; }
   .time-input::placeholder { color: #AAAAAA; }
-
-  /* ── Icon buttons ── */
-  .icon-btn {
-    background: none;
-    border: 1.5px solid var(--border);
-    border-radius: 8px;
-    padding: 6px 9px;
-    font-size: 14px;
-    cursor: pointer;
-    line-height: 1;
-  }
+  .icon-btn { background: none; border: 1.5px solid var(--border); border-radius: 8px; padding: 6px 9px; font-size: 14px; cursor: pointer; line-height: 1; }
   .icon-btn.red { border-color: #FADBD8; color: var(--red); }
   .icon-btn:active { opacity: 0.75; }
-
-  /* ── Foster notes display ── */
-  .med-foster-notes {
-    font-size: 12px;
-    color: var(--teal);
-    font-style: italic;
-    margin-top: 3px;
-    line-height: 1.4;
-  }
+  .med-foster-notes { font-size: 12px; color: var(--teal); font-style: italic; margin-top: 3px; line-height: 1.4; }
 </style>
 </head>
 <body>
 
-<!-- Header -->
 <div class="app-header">
   <h1>🐱 Foster Cat Medication Calculator</h1>
   <p>Always confirm doses with your rescue org or veterinarian</p>
 </div>
 
-<!-- Screens -->
 <div class="screens">
 
-  <!-- ══════════════════ CALCULATOR SCREEN ══════════════════ -->
+  <!-- CALCULATOR SCREEN -->
   <div class="screen active" id="screen-calc">
-
-    <div class="disclaimer">
-      ⚠️ <strong>Reference tool only.</strong> Confirm all doses with your rescue organization or veterinarian before administering.
-    </div>
-
-    <!-- Cat Info -->
+    <div class="disclaimer">⚠️ <strong>Reference tool only.</strong> Confirm all doses with your rescue organization or veterinarian before administering.</div>
     <div class="card">
       <div class="card-title">Cat Information</div>
-      <div class="field">
-        <label for="cat-name">Cat Name</label>
-        <input type="text" id="cat-name" placeholder="e.g. Biscuit" autocomplete="off" autocorrect="off">
-      </div>
-      <div class="field">
-        <label for="date-started">Date Started</label>
-        <input type="date" id="date-started">
-      </div>
+      <div class="field"><label for="cat-name">Cat Name</label><input type="text" id="cat-name" placeholder="e.g. Biscuit" autocomplete="off" autocorrect="off"></div>
+      <div class="field"><label for="date-started">Date Started</label><input type="date" id="date-started"></div>
     </div>
-
-    <!-- Weight -->
     <div class="card">
       <div class="card-title">Cat Weight</div>
       <div class="weight-row">
-        <div class="field">
-          <label for="weight-val">Weight</label>
-          <input type="number" id="weight-val" placeholder="0.0" step="0.1" min="0" inputmode="decimal">
-        </div>
-        <div class="field">
-          <label for="weight-unit">Unit</label>
-          <div class="sel-wrap">
-            <select id="weight-unit">
-              <option value="lb">Pounds (lb)</option>
-              <option value="oz">Ounces (oz)</option>
-              <option value="g">Grams (g)</option>
-              <option value="kg">Kilograms (kg)</option>
-            </select>
-          </div>
-        </div>
+        <div class="field"><label for="weight-val">Weight</label><input type="number" id="weight-val" placeholder="0.0" step="0.1" min="0" inputmode="decimal"></div>
+        <div class="field"><label for="weight-unit">Unit</label><div class="sel-wrap"><select id="weight-unit"><option value="lb">Pounds (lb)</option><option value="oz">Ounces (oz)</option><option value="g">Grams (g)</option><option value="kg">Kilograms (kg)</option></select></div></div>
       </div>
       <div class="kg-hint" id="kg-hint" style="display:none;"></div>
     </div>
-
-    <!-- Medication -->
     <div class="card">
       <div class="card-title">Medication</div>
-      <div class="field">
-        <label for="med-select">Select Medication</label>
-        <div class="sel-wrap">
-          <select id="med-select">
-            <option value="">— Choose medication —</option>
-          </select>
-        </div>
-      </div>
+      <div class="field"><label for="med-select">Select Medication</label><div class="sel-wrap"><select id="med-select"><option value="">— Choose medication —</option></select></div></div>
       <div class="indication" id="indication" style="display:none;"></div>
-      <div class="field" id="conc-field" style="display:none;">
-        <label for="conc-select">Concentration / Form</label>
-        <div class="sel-wrap">
-          <select id="conc-select">
-            <option value="">— Choose concentration —</option>
-          </select>
-        </div>
-      </div>
+      <div class="field" id="conc-field" style="display:none;"><label for="conc-select">Concentration / Form</label><div class="sel-wrap"><select id="conc-select"><option value="">— Choose concentration —</option></select></div></div>
     </div>
-
-    <!-- Results -->
     <div class="card" id="results-card" style="display:none;">
       <div class="card-title">Calculated Dose</div>
-
-      <!-- Fixed dose (Karo) -->
       <div id="fixed-dose-display" style="display:none;"></div>
-
-      <!-- Weight-based dose -->
       <div id="weight-dose-display" style="display:none;">
         <div class="dose-basis" id="dose-basis"></div>
         <div class="dose-grid">
-          <div class="dose-box low">
-            <div class="dose-box-lbl">Low Dose</div>
-            <div class="dose-box-val" id="low-val">—</div>
-            <div class="dose-box-unit" id="low-unit"></div>
-            <div class="dose-box-sub" id="low-sub"></div>
-          </div>
-          <div class="dose-box high">
-            <div class="dose-box-lbl">High Dose</div>
-            <div class="dose-box-val" id="high-val">—</div>
-            <div class="dose-box-unit" id="high-unit"></div>
-            <div class="dose-box-sub" id="high-sub"></div>
-          </div>
+          <div class="dose-box low"><div class="dose-box-lbl">Low Dose</div><div class="dose-box-val" id="low-val">—</div><div class="dose-box-unit" id="low-unit"></div><div class="dose-box-sub" id="low-sub"></div></div>
+          <div class="dose-box high"><div class="dose-box-lbl">High Dose</div><div class="dose-box-val" id="high-val">—</div><div class="dose-box-unit" id="high-unit"></div><div class="dose-box-sub" id="high-sub"></div></div>
         </div>
-        <div class="result-row">
-          <span class="result-lbl">Frequency</span>
-          <span class="result-val" id="result-freq">—</span>
-        </div>
+        <div class="result-row"><span class="result-lbl">Frequency</span><span class="result-val" id="result-freq">—</span></div>
       </div>
-
-      <!-- Notes & Source (always shown when conc selected) -->
       <div id="notes-section" style="display:none;">
         <div class="result-lbl" style="width:auto;margin-bottom:4px;">Notes</div>
         <div class="note-box" id="result-notes"></div>
         <div class="source-txt" id="result-source"></div>
       </div>
     </div>
-
-    <!-- Action buttons -->
-    <button class="btn btn-teal" id="add-tracker-btn" style="display:none;" onclick="openAddModal()">
-      ➕ Add to Treatment Tracker
-    </button>
-
-    <!-- Calculator export buttons -->
+    <button class="btn btn-teal" id="add-tracker-btn" style="display:none;" onclick="openAddModal()">➕ Add to Treatment Tracker</button>
     <div id="calc-export-btns" style="display:none;">
       <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:8px;">Export This Calculation</div>
       <div style="display:flex;gap:8px;margin-bottom:10px;">
@@ -514,35 +182,18 @@
         <button class="btn btn-outline" style="margin:0;flex:1;font-size:14px;padding:11px;" onclick="exportCalcWord()">📄 Word</button>
       </div>
     </div>
+    <button class="btn btn-outline" onclick="clearCalc()" style="margin-bottom:24px;">✕ Clear Form</button>
+  </div>
 
-    <button class="btn btn-outline" onclick="clearCalc()" style="margin-bottom:24px;">
-      ✕ Clear Form
-    </button>
-
-  </div><!-- /screen-calc -->
-
-
-  <!-- ══════════════════ TRACKER SCREEN ══════════════════ -->
+  <!-- TRACKER SCREEN -->
   <div class="screen" id="screen-tracker">
-
-    <!-- Date navigation -->
     <div class="date-nav">
       <button class="date-nav-arrow" onclick="shiftDate(-1)">‹</button>
-      <div class="date-nav-center">
-        <div class="date-nav-day" id="nav-day">Today</div>
-        <div class="date-nav-date" id="nav-date"></div>
-      </div>
+      <div class="date-nav-center"><div class="date-nav-day" id="nav-day">Today</div><div class="date-nav-date" id="nav-date"></div></div>
       <button class="date-nav-arrow" onclick="shiftDate(1)">›</button>
     </div>
-
     <div id="tracker-content"></div>
-
-    <!-- Add custom item -->
-    <button class="btn btn-navy" onclick="openCustomModal()" style="margin-top:4px;">
-      ➕ Add Custom Reminder to Tracker
-    </button>
-
-    <!-- Tracker export buttons -->
+    <button class="btn btn-navy" onclick="openCustomModal()" style="margin-top:4px;">➕ Add Custom Reminder to Tracker</button>
     <div style="margin-top:4px;">
       <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:8px;">Export Tracker</div>
       <div style="display:flex;gap:8px;margin-bottom:10px;">
@@ -550,70 +201,27 @@
         <button class="btn btn-outline" style="margin:0;flex:1;font-size:14px;padding:11px;" onclick="exportTrackerWord()">📄 Word</button>
       </div>
     </div>
+    <button class="btn btn-outline" onclick="clearTracker()" style="margin-top:4px;">🗑 Clear All Tracker Data</button>
+  </div>
 
-    <button class="btn btn-outline" onclick="clearTracker()" style="margin-top:4px;">
-      🗑 Clear All Tracker Data
-    </button>
+</div>
 
-  </div><!-- /screen-tracker -->
-
-</div><!-- /screens -->
-
-<!-- Bottom tab bar -->
 <div class="tab-bar">
-  <button class="tab-btn active" id="tab-calc" onclick="switchTab('calc')">
-    <span class="icon">💊</span>
-    <span>Calculator</span>
-  </button>
-  <button class="tab-btn" id="tab-tracker" onclick="switchTab('tracker')">
-    <span class="icon">📋</span>
-    <span>Tracker</span>
-  </button>
+  <button class="tab-btn active" id="tab-calc" onclick="switchTab('calc')"><span class="icon">💊</span><span>Calculator</span></button>
+  <button class="tab-btn" id="tab-tracker" onclick="switchTab('tracker')"><span class="icon">📋</span><span>Tracker</span></button>
 </div>
 
 <!-- Custom Item Modal -->
 <div class="modal-overlay" id="custom-modal" onclick="closeCustomModal(event)">
   <div class="modal">
     <h3>Add Custom Reminder</h3>
-    <div class="field">
-      <label for="custom-cat">Cat name</label>
-      <input type="text" id="custom-cat" placeholder="e.g. Biscuit" list="existing-cats" autocomplete="off">
-      <datalist id="existing-cats"></datalist>
-    </div>
-    <div class="field">
-      <label for="custom-name">What to give / do</label>
-      <input type="text" id="custom-name" placeholder="e.g. Probiotics, Lysine, Eye drops, Weight check">
-    </div>
-    <div class="field">
-      <label for="custom-dose">Dose or instructions (optional)</label>
-      <input type="text" id="custom-dose" placeholder="e.g. 1/4 tsp in food, 1 pump on paw">
-    </div>
-    <div class="field">
-      <label for="custom-freq">Frequency</label>
-      <div class="sel-wrap">
-        <select id="custom-freq">
-          <option value="Once daily">Once daily</option>
-          <option value="Twice daily">Twice daily</option>
-          <option value="Three times daily">Three times daily</option>
-          <option value="As needed">As needed</option>
-          <option value="Weekly">Weekly</option>
-          <option value="Other">Other (see notes)</option>
-        </select>
-      </div>
-    </div>
-    <div class="field">
-      <label for="custom-notes">Notes (optional)</label>
-      <textarea id="custom-notes" placeholder="Any extra reminders..."
-        style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:15px;font-family:inherit;resize:vertical;min-height:60px;color:var(--text)"></textarea>
-    </div>
-    <div class="field">
-      <label for="custom-days">Duration in days (optional)</label>
-      <input type="number" id="custom-days" placeholder="Leave blank if ongoing" min="1" inputmode="numeric">
-    </div>
-    <div class="modal-btns">
-      <button class="btn btn-outline" onclick="closeCustomModal()">Cancel</button>
-      <button class="btn btn-teal" onclick="confirmCustomItem()">Add</button>
-    </div>
+    <div class="field"><label for="custom-cat">Cat name</label><input type="text" id="custom-cat" placeholder="e.g. Biscuit" list="existing-cats" autocomplete="off"><datalist id="existing-cats"></datalist></div>
+    <div class="field"><label for="custom-name">What to give / do</label><input type="text" id="custom-name" placeholder="e.g. Probiotics, Lysine, Eye drops, Weight check"></div>
+    <div class="field"><label for="custom-dose">Dose or instructions (optional)</label><input type="text" id="custom-dose" placeholder="e.g. 1/4 tsp in food, 1 pump on paw"></div>
+    <div class="field"><label for="custom-freq">Frequency</label><div class="sel-wrap"><select id="custom-freq"><option value="Once daily">Once daily</option><option value="Twice daily">Twice daily</option><option value="Three times daily">Three times daily</option><option value="As needed">As needed</option><option value="Weekly">Weekly</option><option value="Other">Other (see notes)</option></select></div></div>
+    <div class="field"><label for="custom-notes">Notes (optional)</label><textarea id="custom-notes" placeholder="Any extra reminders..." style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:15px;font-family:inherit;resize:vertical;min-height:60px;color:var(--text)"></textarea></div>
+    <div class="field"><label for="custom-days">Duration in days (optional)</label><input type="number" id="custom-days" placeholder="Leave blank if ongoing" min="1" inputmode="numeric"></div>
+    <div class="modal-btns"><button class="btn btn-outline" onclick="closeCustomModal()">Cancel</button><button class="btn btn-teal" onclick="confirmCustomItem()">Add</button></div>
   </div>
 </div>
 
@@ -622,19 +230,9 @@
   <div class="modal" id="edit-med-box">
     <h3>Edit Medication</h3>
     <div style="font-size:13px;color:var(--muted);margin-bottom:14px" id="edit-med-name"></div>
-    <div class="field">
-      <label for="edit-dose-input">Dose (edit to round or adjust)</label>
-      <input type="text" id="edit-dose-input" placeholder="e.g. 0.1 mL">
-    </div>
-    <div class="field">
-      <label for="edit-notes-input">Foster notes</label>
-      <textarea id="edit-notes-input" placeholder="e.g. Give with food, hides pill in treat..."
-        style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:15px;font-family:inherit;resize:vertical;min-height:80px;color:var(--text)"></textarea>
-    </div>
-    <div class="modal-btns">
-      <button class="btn btn-outline" onclick="closeEditModal()">Cancel</button>
-      <button class="btn btn-teal" onclick="saveEditMed()">Save</button>
-    </div>
+    <div class="field"><label for="edit-dose-input">Dose (edit to round or adjust)</label><input type="text" id="edit-dose-input" placeholder="e.g. 0.1 mL"></div>
+    <div class="field"><label for="edit-notes-input">Foster notes</label><textarea id="edit-notes-input" placeholder="e.g. Give with food, hides pill in treat..." style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:15px;font-family:inherit;resize:vertical;min-height:80px;color:var(--text)"></textarea></div>
+    <div class="modal-btns"><button class="btn btn-outline" onclick="closeEditModal()">Cancel</button><button class="btn btn-teal" onclick="saveEditMed()">Save</button></div>
   </div>
 </div>
 
@@ -642,26 +240,11 @@
 <div class="modal-overlay" id="modal" onclick="closeModal(event)">
   <div class="modal" id="modal-box">
     <h3>Add to Treatment Tracker</h3>
-    <div id="modal-dose-row" class="field" style="display:none;">
-      <label for="modal-dose">Dose to record</label>
-      <div class="sel-wrap">
-        <select id="modal-dose">
-          <option value="low">Low dose</option>
-          <option value="high">High dose</option>
-        </select>
-      </div>
-    </div>
-    <div class="field">
-      <label for="modal-days">Treatment duration — days (optional)</label>
-      <input type="number" id="modal-days" placeholder="e.g. 7  (calculates end date)" min="1" inputmode="numeric">
-    </div>
-    <div class="modal-btns">
-      <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-teal" onclick="confirmAdd()">Add</button>
-    </div>
+    <div id="modal-dose-row" class="field" style="display:none;"><label for="modal-dose">Dose to record</label><div class="sel-wrap"><select id="modal-dose"><option value="low">Low dose</option><option value="high">High dose</option></select></div></div>
+    <div class="field"><label for="modal-days">Treatment duration — days (optional)</label><input type="number" id="modal-days" placeholder="e.g. 7  (calculates end date)" min="1" inputmode="numeric"></div>
+    <div class="modal-btns"><button class="btn btn-outline" onclick="closeModal()">Cancel</button><button class="btn btn-teal" onclick="confirmAdd()">Add</button></div>
   </div>
 </div>
-
 
 <script>
 // ═══════════════════════════════════════════════════════════
@@ -699,10 +282,10 @@ const DB = {
     ind: "Dental/oral infections, Toxoplasma, anaerobic bacterial infections, soft tissue and bone infections",
     concs: {
       "25 mg/mL (Liquid)":  { v:25,  t:"L", lo:5.5, hi:11, u:"mg/kg", freq:"Twice daily (every 12 hours) — or once daily at 11 mg/kg", notes:"Give with food. Always follow with a syringe of water — risk of esophageal injury. Flavored liquid formulations available from compounding pharmacies.", src:"Plumb's Veterinary Drug Handbook, 10th Ed." },
-      "25 mg Capsule":      { v:25,  t:"T", lo:5.5, hi:11, u:"mg/kg", freq:"Twice daily (every 12 hours) — or once daily at 11 mg/kg", notes:"Give with food. Always follow with a syringe of water — risk of esophageal injury. Flavored liquid formulations available from compounding pharmacies.", src:"Plumb's Veterinary Drug Handbook, 10th Ed." },
-      "75 mg Capsule":      { v:75,  t:"T", lo:5.5, hi:11, u:"mg/kg", freq:"Twice daily (every 12 hours) — or once daily at 11 mg/kg", notes:"Give with food. Always follow with a syringe of water — risk of esophageal injury. Flavored liquid formulations available from compounding pharmacies.", src:"Plumb's Veterinary Drug Handbook, 10th Ed." },
-      "150 mg Capsule":     { v:150, t:"T", lo:5.5, hi:11, u:"mg/kg", freq:"Twice daily (every 12 hours) — or once daily at 11 mg/kg", notes:"Give with food. Always follow with a syringe of water — risk of esophageal injury. Flavored liquid formulations available from compounding pharmacies.", src:"Plumb's Veterinary Drug Handbook, 10th Ed." },
-      "300 mg Capsule":     { v:300, t:"T", lo:5.5, hi:11, u:"mg/kg", freq:"Twice daily (every 12 hours) — or once daily at 11 mg/kg", notes:"Give with food. Always follow with a syringe of water — risk of esophageal injury. Flavored liquid formulations available from compounding pharmacies.", src:"Plumb's Veterinary Drug Handbook, 10th Ed." }
+      "25 mg Capsule":      { v:25,  t:"T", lo:5.5, hi:11, u:"mg/kg", freq:"Twice daily (every 12 hours) — or once daily at 11 mg/kg", notes:"Give with food. Always follow with a syringe of water — risk of esophageal injury.", src:"Plumb's Veterinary Drug Handbook, 10th Ed." },
+      "75 mg Capsule":      { v:75,  t:"T", lo:5.5, hi:11, u:"mg/kg", freq:"Twice daily (every 12 hours) — or once daily at 11 mg/kg", notes:"Give with food. Always follow with a syringe of water — risk of esophageal injury.", src:"Plumb's Veterinary Drug Handbook, 10th Ed." },
+      "150 mg Capsule":     { v:150, t:"T", lo:5.5, hi:11, u:"mg/kg", freq:"Twice daily (every 12 hours) — or once daily at 11 mg/kg", notes:"Give with food. Always follow with a syringe of water — risk of esophageal injury.", src:"Plumb's Veterinary Drug Handbook, 10th Ed." },
+      "300 mg Capsule":     { v:300, t:"T", lo:5.5, hi:11, u:"mg/kg", freq:"Twice daily (every 12 hours) — or once daily at 11 mg/kg", notes:"Give with food. Always follow with a syringe of water — risk of esophageal injury.", src:"Plumb's Veterinary Drug Handbook, 10th Ed." }
     }
   },
   "Doxycycline": {
@@ -721,8 +304,8 @@ const DB = {
     ind: "Broad-spectrum bacterial infections: UTI, respiratory, skin — NOT for kittens under 12 weeks",
     concs: {
       "22.7 mg/mL (Liquid)": { v:22.7, t:"L", lo:5, hi:5, u:"mg/kg", freq:"Once daily", notes:"⚠️ DO NOT USE in kittens under 12 weeks — causes permanent cartilage damage. Do not exceed 5 mg/kg in cats (risk of retinal toxicity at higher doses).", src:"Plumb's Veterinary Drug Handbook, 10th Ed." },
-      "22.7 mg Tablet":      { v:22.7, t:"T", lo:5, hi:5, u:"mg/kg", freq:"Once daily", notes:"⚠️ DO NOT USE in kittens under 12 weeks — causes permanent cartilage damage. Do not exceed 5 mg/kg in cats (risk of retinal toxicity at higher doses).", src:"Plumb's Veterinary Drug Handbook, 10th Ed." },
-      "68 mg Tablet":        { v:68,   t:"T", lo:5, hi:5, u:"mg/kg", freq:"Once daily", notes:"⚠️ DO NOT USE in kittens under 12 weeks — causes permanent cartilage damage. Do not exceed 5 mg/kg in cats (risk of retinal toxicity at higher doses).", src:"Plumb's Veterinary Drug Handbook, 10th Ed." }
+      "22.7 mg Tablet":      { v:22.7, t:"T", lo:5, hi:5, u:"mg/kg", freq:"Once daily", notes:"⚠️ DO NOT USE in kittens under 12 weeks — causes permanent cartilage damage. Do not exceed 5 mg/kg in cats.", src:"Plumb's Veterinary Drug Handbook, 10th Ed." },
+      "68 mg Tablet":        { v:68,   t:"T", lo:5, hi:5, u:"mg/kg", freq:"Once daily", notes:"⚠️ DO NOT USE in kittens under 12 weeks — causes permanent cartilage damage. Do not exceed 5 mg/kg in cats.", src:"Plumb's Veterinary Drug Handbook, 10th Ed." }
     }
   },
   "Metronidazole (Flagyl)": {
@@ -769,8 +352,8 @@ const DB = {
     cat: "Antiparasitic",
     ind: "Roundworms (Toxocara cati), hookworms — routine deworming for kittens",
     concs: {
-      "50 mg/mL (Standard)":     { v:50,   t:"L", lo:10, hi:10, u:"mg/kg", freq:"Once; repeat in 2 weeks", notes:"Safe for kittens 2+ weeks old and pregnant queens. Can mix with food. Use kitten-safe (4.54 mg/mL) concentration for very young kittens.", src:"CAPC Parasite Guidelines 2023; Plumb's Veterinary Drug Handbook, 10th Ed." },
-      "4.54 mg/mL (Kitten-Safe)": { v:4.54, t:"L", lo:10, hi:10, u:"mg/kg", freq:"Once; repeat in 2 weeks", notes:"Safe for kittens 2+ weeks old and pregnant queens. Can mix with food. Use kitten-safe (4.54 mg/mL) concentration for very young kittens.", src:"CAPC Parasite Guidelines 2023; Plumb's Veterinary Drug Handbook, 10th Ed." }
+      "50 mg/mL (Standard)":     { v:50,   t:"L", lo:10, hi:10, u:"mg/kg", freq:"Once; repeat in 2 weeks", notes:"Safe for kittens 2+ weeks old and pregnant queens. Can mix with food.", src:"CAPC Parasite Guidelines 2023; Plumb's Veterinary Drug Handbook, 10th Ed." },
+      "4.54 mg/mL (Kitten-Safe)": { v:4.54, t:"L", lo:10, hi:10, u:"mg/kg", freq:"Once; repeat in 2 weeks", notes:"Safe for kittens 2+ weeks old and pregnant queens. Use kitten-safe concentration for very young kittens.", src:"CAPC Parasite Guidelines 2023; Plumb's Veterinary Drug Handbook, 10th Ed." }
     }
   },
   "Sulfadimethoxine (Albon)": {
@@ -778,17 +361,17 @@ const DB = {
     ind: "Coccidiosis (Cystoisospora spp.) — older protocol; ponazuril now generally preferred",
     concs: {
       "50 mg/mL (Liquid)":  { v:50,  t:"L", lo:27.5, hi:27.5, u:"mg/kg", freq:"DAY 1: 55 mg/kg loading; then 27.5 mg/kg once daily for 4–20 days", notes:"⚠️ DAY 1 requires a LOADING DOSE of 55 mg/kg (double the displayed dose). Ensure adequate water intake. Do not use in cats with renal disease.", src:"Plumb's Veterinary Drug Handbook, 10th Ed.; CAPC Coccidia Guidelines" },
-      "125 mg Tablet":      { v:125, t:"T", lo:27.5, hi:27.5, u:"mg/kg", freq:"DAY 1: 55 mg/kg loading; then 27.5 mg/kg once daily for 4–20 days", notes:"⚠️ DAY 1 requires a LOADING DOSE of 55 mg/kg (double the displayed dose). Ensure adequate water intake. Do not use in cats with renal disease.", src:"Plumb's Veterinary Drug Handbook, 10th Ed.; CAPC Coccidia Guidelines" },
-      "250 mg Tablet":      { v:250, t:"T", lo:27.5, hi:27.5, u:"mg/kg", freq:"DAY 1: 55 mg/kg loading; then 27.5 mg/kg once daily for 4–20 days", notes:"⚠️ DAY 1 requires a LOADING DOSE of 55 mg/kg (double the displayed dose). Ensure adequate water intake. Do not use in cats with renal disease.", src:"Plumb's Veterinary Drug Handbook, 10th Ed.; CAPC Coccidia Guidelines" },
-      "500 mg Tablet":      { v:500, t:"T", lo:27.5, hi:27.5, u:"mg/kg", freq:"DAY 1: 55 mg/kg loading; then 27.5 mg/kg once daily for 4–20 days", notes:"⚠️ DAY 1 requires a LOADING DOSE of 55 mg/kg (double the displayed dose). Ensure adequate water intake. Do not use in cats with renal disease.", src:"Plumb's Veterinary Drug Handbook, 10th Ed.; CAPC Coccidia Guidelines" }
+      "125 mg Tablet":      { v:125, t:"T", lo:27.5, hi:27.5, u:"mg/kg", freq:"DAY 1: 55 mg/kg loading; then 27.5 mg/kg once daily for 4–20 days", notes:"⚠️ DAY 1 requires a LOADING DOSE of 55 mg/kg (double the displayed dose). Ensure adequate water intake.", src:"Plumb's Veterinary Drug Handbook, 10th Ed." },
+      "250 mg Tablet":      { v:250, t:"T", lo:27.5, hi:27.5, u:"mg/kg", freq:"DAY 1: 55 mg/kg loading; then 27.5 mg/kg once daily for 4–20 days", notes:"⚠️ DAY 1 requires a LOADING DOSE of 55 mg/kg (double the displayed dose). Ensure adequate water intake.", src:"Plumb's Veterinary Drug Handbook, 10th Ed." },
+      "500 mg Tablet":      { v:500, t:"T", lo:27.5, hi:27.5, u:"mg/kg", freq:"DAY 1: 55 mg/kg loading; then 27.5 mg/kg once daily for 4–20 days", notes:"⚠️ DAY 1 requires a LOADING DOSE of 55 mg/kg (double the displayed dose). Ensure adequate water intake.", src:"Plumb's Veterinary Drug Handbook, 10th Ed." }
     }
   },
   "Toltrazuril (Compounded)": {
     cat: "Antiparasitic",
     ind: "Coccidiosis (Cystoisospora spp.) — alternative to ponazuril; same mechanism",
     concs: {
-      "50 mg/mL (Liquid, compounded)": { v:50, t:"L", lo:30, hi:30, u:"mg/kg", freq:"Single dose; may repeat in 10–14 days", notes:"Not FDA-approved for cats — used off-label. Similar efficacy to ponazuril. Refrigerate compounded solution. Confirm with rescue/vet before use.", src:"Plumb's Veterinary Drug Handbook, 10th Ed.; Kühn et al., Parasitol Res 2010" },
-      "25 mg/mL (2.5% Solution)":      { v:25, t:"L", lo:30, hi:30, u:"mg/kg", freq:"Single dose; may repeat in 10–14 days", notes:"Not FDA-approved for cats — used off-label. Similar efficacy to ponazuril. Refrigerate compounded solution. Confirm with rescue/vet before use.", src:"Plumb's Veterinary Drug Handbook, 10th Ed.; Kühn et al., Parasitol Res 2010" }
+      "50 mg/mL (Liquid, compounded)": { v:50, t:"L", lo:30, hi:30, u:"mg/kg", freq:"Single dose; may repeat in 10–14 days", notes:"Not FDA-approved for cats — used off-label. Similar efficacy to ponazuril. Refrigerate compounded solution. Confirm with rescue/vet before use.", src:"Plumb's Veterinary Drug Handbook, 10th Ed." },
+      "25 mg/mL (2.5% Solution)":      { v:25, t:"L", lo:30, hi:30, u:"mg/kg", freq:"Single dose; may repeat in 10–14 days", notes:"Not FDA-approved for cats — used off-label. Refrigerate compounded solution.", src:"Plumb's Veterinary Drug Handbook, 10th Ed." }
     }
   },
   // ── Antiviral ────────────────────────────────────────────
@@ -797,8 +380,8 @@ const DB = {
     ind: "Feline herpesvirus (FHV-1): upper respiratory infection, conjunctivitis, corneal ulcers",
     concs: {
       "125 mg Tablet": { v:125, t:"T", lo:40, hi:90, u:"mg/kg", freq:"Two to three times daily (every 8–12 hours)", notes:"Higher doses for severe ocular disease or active corneal ulcers. Human antiviral — safe and effective for cats. Can be compounded into liquid.", src:"Thomasy SM et al., J Vet Int Med 2011; Plumb's Veterinary Drug Handbook, 10th Ed." },
-      "250 mg Tablet": { v:250, t:"T", lo:40, hi:90, u:"mg/kg", freq:"Two to three times daily (every 8–12 hours)", notes:"Higher doses for severe ocular disease or active corneal ulcers. Human antiviral — safe and effective for cats. Can be compounded into liquid.", src:"Thomasy SM et al., J Vet Int Med 2011; Plumb's Veterinary Drug Handbook, 10th Ed." },
-      "500 mg Tablet": { v:500, t:"T", lo:40, hi:90, u:"mg/kg", freq:"Two to three times daily (every 8–12 hours)", notes:"Higher doses for severe ocular disease or active corneal ulcers. Human antiviral — safe and effective for cats. Can be compounded into liquid.", src:"Thomasy SM et al., J Vet Int Med 2011; Plumb's Veterinary Drug Handbook, 10th Ed." }
+      "250 mg Tablet": { v:250, t:"T", lo:40, hi:90, u:"mg/kg", freq:"Two to three times daily (every 8–12 hours)", notes:"Higher doses for severe ocular disease or active corneal ulcers. Human antiviral — safe and effective for cats.", src:"Thomasy SM et al., J Vet Int Med 2011; Plumb's Veterinary Drug Handbook, 10th Ed." },
+      "500 mg Tablet": { v:500, t:"T", lo:40, hi:90, u:"mg/kg", freq:"Two to three times daily (every 8–12 hours)", notes:"Higher doses for severe ocular disease or active corneal ulcers. Human antiviral — safe and effective for cats.", src:"Thomasy SM et al., J Vet Int Med 2011; Plumb's Veterinary Drug Handbook, 10th Ed." }
     }
   },
   // ── Antifungal ───────────────────────────────────────────
@@ -807,7 +390,7 @@ const DB = {
     ind: "Ringworm (dermatophytosis / Microsporum canis) — highly contagious fungal skin infection",
     concs: {
       "10 mg/mL (Liquid)":   { v:10,  t:"L", lo:5, hi:10, u:"mg/kg", freq:"Once daily; pulse dosing (1 week on / 1 week off) also used", notes:"Give with food — a fatty meal significantly improves absorption. Monitor for GI side effects and liver values on extended courses.", src:"Plumb's Veterinary Drug Handbook, 10th Ed.; Moriello KA, J Feline Med Surg 2014" },
-      "100 mg Capsule":      { v:100, t:"T", lo:5, hi:10, u:"mg/kg", freq:"Once daily; pulse dosing (1 week on / 1 week off) also used", notes:"Give with food — a fatty meal significantly improves absorption. Monitor for GI side effects and liver values on extended courses.", src:"Plumb's Veterinary Drug Handbook, 10th Ed.; Moriello KA, J Feline Med Surg 2014" }
+      "100 mg Capsule":      { v:100, t:"T", lo:5, hi:10, u:"mg/kg", freq:"Once daily; pulse dosing (1 week on / 1 week off) also used", notes:"Give with food — a fatty meal significantly improves absorption.", src:"Plumb's Veterinary Drug Handbook, 10th Ed." }
     }
   },
   "Terbinafine (Lamisil)": {
@@ -822,8 +405,8 @@ const DB = {
     cat: "GI / Supportive",
     ind: "Stomach acid reduction: gastritis, esophagitis, GI ulcers, acid-related nausea",
     concs: {
-      "10 mg Tablet": { v:10, t:"T", lo:0.5, hi:1, u:"mg/kg", freq:"Once daily", notes:"Give 30–60 min before meals for best effect. OTC product — confirm use with rescue org or vet. Tablets can be split.", src:"Plumb's Veterinary Drug Handbook, 10th Ed." },
-      "20 mg Tablet": { v:20, t:"T", lo:0.5, hi:1, u:"mg/kg", freq:"Once daily", notes:"Give 30–60 min before meals for best effect. OTC product — confirm use with rescue org or vet. Tablets can be split.", src:"Plumb's Veterinary Drug Handbook, 10th Ed." }
+      "10 mg Tablet": { v:10, t:"T", lo:0.5, hi:1, u:"mg/kg", freq:"Once daily", notes:"Give 30–60 min before meals for best effect. OTC product — confirm use with rescue org or vet.", src:"Plumb's Veterinary Drug Handbook, 10th Ed." },
+      "20 mg Tablet": { v:20, t:"T", lo:0.5, hi:1, u:"mg/kg", freq:"Once daily", notes:"Give 30–60 min before meals for best effect. OTC product — confirm use with rescue org or vet.", src:"Plumb's Veterinary Drug Handbook, 10th Ed." }
     }
   },
   "Maropitant (Cerenia)": {
@@ -839,8 +422,8 @@ const DB = {
     ind: "Inflammation, allergies, IBD, immune-mediated conditions, appetite stimulation",
     concs: {
       "5 mg/mL (Liquid)": { v:5,  t:"L", lo:1, hi:2, u:"mg/kg", freq:"Once or twice daily (per vet instructions)", notes:"⚠️ Corticosteroid — do NOT stop abruptly; taper dose as directed. Give with food. Do not use with active infection without vet guidance.", src:"Plumb's Veterinary Drug Handbook, 10th Ed." },
-      "5 mg Tablet":      { v:5,  t:"T", lo:1, hi:2, u:"mg/kg", freq:"Once or twice daily (per vet instructions)", notes:"⚠️ Corticosteroid — do NOT stop abruptly; taper dose as directed. Give with food. Do not use with active infection without vet guidance.", src:"Plumb's Veterinary Drug Handbook, 10th Ed." },
-      "20 mg Tablet":     { v:20, t:"T", lo:1, hi:2, u:"mg/kg", freq:"Once or twice daily (per vet instructions)", notes:"⚠️ Corticosteroid — do NOT stop abruptly; taper dose as directed. Give with food. Do not use with active infection without vet guidance.", src:"Plumb's Veterinary Drug Handbook, 10th Ed." }
+      "5 mg Tablet":      { v:5,  t:"T", lo:1, hi:2, u:"mg/kg", freq:"Once or twice daily (per vet instructions)", notes:"⚠️ Corticosteroid — do NOT stop abruptly; taper dose as directed. Give with food.", src:"Plumb's Veterinary Drug Handbook, 10th Ed." },
+      "20 mg Tablet":     { v:20, t:"T", lo:1, hi:2, u:"mg/kg", freq:"Once or twice daily (per vet instructions)", notes:"⚠️ Corticosteroid — do NOT stop abruptly; taper dose as directed. Give with food.", src:"Plumb's Veterinary Drug Handbook, 10th Ed." }
     }
   },
   // ── Emergency Support ────────────────────────────────────
@@ -869,7 +452,7 @@ const DB = {
     cat: "Fluids",
     ind: "Dehydration, fluid support — LRS preferred; NS useful for diluting medications",
     concs: {
-      "Subcutaneous (SQ)": { v:1, t:"L", lo:50, hi:100, u:"mL/kg", freq:"As directed by vet — typically once or twice daily under the skin for foster care", notes:"⚠️ SQ fluids only for home/foster administration. Higher sodium than LRS — LRS is generally preferred for cats. Warm to body temperature before use. Avoid in cats with heart disease.", src:"Plumb's Veterinary Drug Handbook, 10th Ed.; DiBartola SP, Fluid Therapy in Small Animals, 4th Ed." }
+      "Subcutaneous (SQ)": { v:1, t:"L", lo:50, hi:100, u:"mL/kg", freq:"As directed by vet — typically once or twice daily under the skin for foster care", notes:"⚠️ SQ fluids only for home/foster administration. Higher sodium than LRS — LRS is generally preferred for cats. Warm to body temperature before use.", src:"Plumb's Veterinary Drug Handbook, 10th Ed." }
     }
   },
   // ── Supplement / Formula ─────────────────────────────────
@@ -878,7 +461,7 @@ const DB = {
     ind: "Complete nutrition for orphaned or neonatal kittens when queen is unavailable or milk is insufficient",
     concs: {
       "Ready-to-feed Liquid":              { v:1, t:"L", lo:130, hi:200, u:"mL/kg/day", freq:"Divide daily total by number of feedings — Week 1: every 2 hours · Weeks 2–3: every 3–4 hours · Week 4+: every 4–6 hours", notes:"Dose shown is DAILY TOTAL in mL — divide by number of feedings/day to get per-feeding amount. Warm to 98–100°F before feeding. Week 1: ~130 mL/kg/day | Week 2: ~160 | Weeks 3–4: ~200. Start conservatively.", src:"PetAg manufacturer guidelines; Maddie's Fund Kitten Care Protocols" },
-      "Powder — reconstituted per label": { v:1, t:"L", lo:130, hi:200, u:"mL/kg/day", freq:"Divide daily total by number of feedings — Week 1: every 2 hours · Weeks 2–3: every 3–4 hours · Week 4+: every 4–6 hours", notes:"Dose shown is DAILY TOTAL in mL — divide by number of feedings/day to get per-feeding amount. Warm to 98–100°F before feeding. Week 1: ~130 mL/kg/day | Week 2: ~160 | Weeks 3–4: ~200. Start conservatively.", src:"PetAg manufacturer guidelines; Maddie's Fund Kitten Care Protocols" }
+      "Powder — reconstituted per label": { v:1, t:"L", lo:130, hi:200, u:"mL/kg/day", freq:"Divide daily total by number of feedings — Week 1: every 2 hours · Weeks 2–3: every 3–4 hours · Week 4+: every 4–6 hours", notes:"Dose shown is DAILY TOTAL in mL — divide by number of feedings/day to get per-feeding amount. Warm to 98–100°F before feeding.", src:"PetAg manufacturer guidelines; Maddie's Fund Kitten Care Protocols" }
     }
   },
   "Rebound OES (Electrolyte Solution)": {
@@ -897,8 +480,8 @@ const DB = {
         v:1, t:"L", lo:0, hi:0, u:"fixed",
         freq:"Initial series: 2 doses 3–4 weeks apart; booster at 1 year",
         fixedNote:"FIXED DOSE — not weight-based. Administer half the reconstituted vial into each nostril. Keep head level for ~30 seconds afterward.",
-        notes:"Intranasal form provides faster local immunity — preferred for high-risk shelter and foster kittens 4+ weeks old. Mild sneezing for 5–7 days after is normal and expected. Do NOT inject — intranasal use only. Mix per label immediately before use.",
-        src:"AAFP Feline Vaccination Guidelines 2020; Scherk MA et al., J Feline Med Surg 2013"
+        notes:"Intranasal form provides faster local immunity — preferred for high-risk shelter and foster kittens 4+ weeks old. Mild sneezing for 5–7 days after is normal and expected. Do NOT inject — intranasal use only.",
+        src:"AAFP Feline Vaccination Guidelines 2020"
       }
     }
   },
@@ -923,7 +506,7 @@ const DB = {
         v:1, t:"L", lo:0, hi:0, u:"fixed",
         freq:"Initial series: 2 doses 3–4 weeks apart starting at 8+ weeks old; annual booster for at-risk cats",
         fixedNote:"FIXED DOSE — 1 mL subcutaneously. Per AAFP guidelines, inject at the distal left rear limb to allow monitoring for injection-site reactions.",
-        notes:"Recommended for all kittens — risk can be reassessed in fully indoor adults. Minimum age 8 weeks. Two doses required to complete the initial series. Specific injection site (left rear leg) is important.",
+        notes:"Recommended for all kittens — risk can be reassessed in fully indoor adults. Minimum age 8 weeks. Two doses required to complete the initial series.",
         src:"AAFP Feline Vaccination Guidelines 2020"
       }
     }
@@ -950,7 +533,7 @@ const DB = {
         v:1, t:"L", lo:0, hi:0, u:"fixed",
         freq:"Once or twice daily for 3–4 weeks, or until lesion resolves",
         fixedNote:"TOPICAL — apply a thin layer directly to the lesion. Rub in gently. Wear gloves — ringworm is contagious to people.",
-        notes:"OTC antifungal. Best for small, localized lesions. For widespread infection, combine with oral itraconazole. Clean area before applying. Use an e-collar to prevent licking. Treat the environment too — vacuum daily, wash bedding, wipe hard surfaces with dilute bleach.",
+        notes:"OTC antifungal. Best for small, localized lesions. For widespread infection, combine with oral itraconazole. Use an e-collar to prevent licking. Treat the environment too — vacuum daily, wash bedding, wipe hard surfaces with dilute bleach.",
         src:"Moriello KA, J Feline Med Surg 2014; Plumb's Veterinary Drug Handbook, 10th Ed."
       }
     }
@@ -976,7 +559,7 @@ const DB = {
         v:1, t:"L", lo:0, hi:0, u:"fixed",
         freq:"Every 5–7 days for a minimum of 6 treatments",
         fixedNote:"TOPICAL DIP — apply diluted solution to entire body. Leave on — do not rinse. Keep cat warm until completely dry. Wear gloves and old clothes — stains everything yellow and has a strong sulfur smell.",
-        notes:"⚠️ Work in a well-ventilated area — strong sulfur odor. Use e-collar to prevent licking until fully dry. Do NOT use on kittens under 8 weeks — check with rescue coordinator first. Clip fur over lesions before dipping for better contact. Stains skin, fabric, and surfaces.",
+        notes:"⚠️ Work in a well-ventilated area — strong sulfur odor. Use e-collar to prevent licking until fully dry. Do NOT use on kittens under 8 weeks. Clip fur over lesions before dipping for better contact.",
         src:"Moriello KA, J Feline Med Surg 2014; Newbury S et al., ACVD Ringworm Treatment Guidelines"
       }
     }
@@ -989,7 +572,7 @@ const DB = {
         v:1, t:"L", lo:0, hi:0, u:"fixed",
         freq:"Once monthly",
         fixedNote:"TOPICAL — apply entire tube contents to bare skin at the base of the neck, in front of the shoulder blades. Part the fur, apply directly to skin. Do not rub in. Keep dry for 2 hours.",
-        notes:"Safe for kittens 8+ weeks old and pregnant or nursing queens. Prescription required. Separate cats until fully dry to prevent grooming each other. Use the kitten (15 mg) tube for cats under 5 lbs.",
+        notes:"Safe for kittens 8+ weeks old and pregnant or nursing queens. Prescription required. Separate cats until fully dry to prevent grooming each other.",
         src:"Zoetis Revolution prescribing information; Plumb's Veterinary Drug Handbook, 10th Ed."
       },
       "Cat — 45 mg (5–15 lbs / 2.3–6.8 kg)": {
@@ -1000,69 +583,63 @@ const DB = {
         src:"Zoetis Revolution prescribing information; Plumb's Veterinary Drug Handbook, 10th Ed."
       }
     }
-  }
-,
-
-  // ── PAIN & ANTI-INFLAMMATORY ──────────────────────────────
+  },
+  // ── Pain / Anti-inflammatory ──────────────────────────────
   "Buprenorphine (Buprenex)": {
     cat: "Pain / Anti-inflammatory",
     ind: "Moderate to severe pain (post-surgical, injury, dental pain)",
     concs: {
       "0.3 mg/mL — injectable / oral transmucosal": {
-        v: 0.3, t: "L", lo: 0.01, hi: 0.02, u: "mg/kg",
-        freq: "Every 6–8 hours",
-        notes: "Administer by squirting the liquid inside the cheek/under the tongue (oral transmucosal route). Do NOT swallow — hold in mouth for 1–2 minutes. Prescription required. Controlled substance. Do not use in cats that are sedated or have breathing problems.",
-        src: "Plumb's Veterinary Drug Handbook, 10th Ed.; IVAPM feline pain management guidelines"
+        v:0.3, t:"L", lo:0.01, hi:0.02, u:"mg/kg",
+        freq:"Every 6–8 hours",
+        notes:"Administer by squirting the liquid inside the cheek/under the tongue (oral transmucosal route). Do NOT swallow — hold in mouth for 1–2 minutes. Prescription required. Controlled substance. Do not use in cats that are sedated or have breathing problems.",
+        src:"Plumb's Veterinary Drug Handbook, 10th Ed.; IVAPM feline pain management guidelines"
       }
     }
   },
-
   "Meloxicam (Metacam)": {
     cat: "Pain / Anti-inflammatory",
     ind: "Pain and inflammation — post-surgical, musculoskeletal, dental",
     concs: {
       "0.5 mg/mL oral suspension": {
-        v: 0.5, t: "L", lo: 0.05, hi: 0.1, u: "mg/kg",
-        freq: "Once daily — give with food",
-        notes: "Give with food to reduce stomach upset. Prescription required. NSAID — do NOT use in cats with kidney disease, dehydration, or those already on steroids (prednisone, dexamethasone). Do not use long-term without vet monitoring. The first dose may be slightly higher per your vet's instructions; follow their exact directions.",
-        src: "Boehringer Ingelheim Metacam prescribing information; Plumb's Veterinary Drug Handbook, 10th Ed."
+        v:0.5, t:"L", lo:0.05, hi:0.1, u:"mg/kg",
+        freq:"Once daily — give with food",
+        notes:"Give with food to reduce stomach upset. Prescription required. NSAID — do NOT use in cats with kidney disease, dehydration, or those already on steroids. Do not use long-term without vet monitoring.",
+        src:"Boehringer Ingelheim Metacam prescribing information; Plumb's Veterinary Drug Handbook, 10th Ed."
       }
     }
   },
-
   "Gabapentin": {
     cat: "Pain / Anti-inflammatory",
     ind: "Neuropathic (nerve) pain, anxiety, and sedation for vet visits",
     concs: {
       "100 mg/mL oral liquid (compounded)": {
-        v: 100, t: "L", lo: 5, hi: 10, u: "mg/kg",
-        freq: "Every 8–12 hours",
-        notes: "Can cause sedation — this is expected. Do not use liquid made for humans (may contain xylitol, which is toxic to cats). Use only veterinary compounded liquid or open capsules. Prescription required. Taper dose slowly when stopping long-term use.",
-        src: "Plumb's Veterinary Drug Handbook, 10th Ed.; IVAPM feline pain guidelines"
+        v:100, t:"L", lo:5, hi:10, u:"mg/kg",
+        freq:"Every 8–12 hours",
+        notes:"Can cause sedation — this is expected. Do not use liquid made for humans (may contain xylitol, which is toxic to cats). Use only veterinary compounded liquid or open capsules. Prescription required. Taper dose slowly when stopping long-term use.",
+        src:"Plumb's Veterinary Drug Handbook, 10th Ed.; IVAPM feline pain guidelines"
       },
       "100 mg capsule": {
-        v: 100, t: "T", lo: 5, hi: 10, u: "mg/kg",
-        freq: "Every 8–12 hours",
-        notes: "Capsule can be opened and mixed with a small amount of food. Can cause sedation — this is expected. Prescription required. Taper dose slowly when stopping long-term use.",
-        src: "Plumb's Veterinary Drug Handbook, 10th Ed.; IVAPM feline pain guidelines"
+        v:100, t:"T", lo:5, hi:10, u:"mg/kg",
+        freq:"Every 8–12 hours",
+        notes:"Capsule can be opened and mixed with a small amount of food. Can cause sedation — this is expected. Prescription required. Taper dose slowly when stopping long-term use.",
+        src:"Plumb's Veterinary Drug Handbook, 10th Ed.; IVAPM feline pain guidelines"
       }
     }
   },
-
   "Robenacoxib (Onsior)": {
     cat: "Pain / Anti-inflammatory",
     ind: "Short-term pain and inflammation after surgery or injury",
     concs: {
       "6 mg tablet": {
-        v: 6, t: "T", lo: 1, hi: 2.4, u: "mg/kg",
-        freq: "Once daily — give with food",
-        notes: "Give with food to reduce stomach upset. Prescription required. NSAID approved for short-term use only (up to 3 days for acute pain). Do NOT use in cats with kidney disease, dehydration, or those already on steroids. Do not combine with other NSAIDs or meloxicam.",
-        src: "Elanco Onsior prescribing information; Plumb's Veterinary Drug Handbook, 10th Ed."
+        v:6, t:"T", lo:1, hi:2.4, u:"mg/kg",
+        freq:"Once daily — give with food",
+        notes:"Give with food to reduce stomach upset. Prescription required. NSAID approved for short-term use only (up to 3 days for acute pain). Do NOT use in cats with kidney disease, dehydration, or those already on steroids. Do not combine with other NSAIDs or meloxicam.",
+        src:"Elanco Onsior prescribing information; Plumb's Veterinary Drug Handbook, 10th Ed."
       }
     }
   },
-
-  // ── OPHTHALMIC (EYE MEDS) ─────────────────────────────────
+  // ── Ophthalmic (Eye) ──────────────────────────────────────
   "Erythromycin Ophthalmic Ointment": {
     cat: "Ophthalmic (Eye)",
     ind: "Bacterial conjunctivitis (pink eye), eyelid infections — first-line antibiotic eye ointment for kittens and cats",
@@ -1076,7 +653,6 @@ const DB = {
       }
     }
   },
-
   "Terramycin Ophthalmic Ointment (Oxytetracycline + Polymyxin B)": {
     cat: "Ophthalmic (Eye)",
     ind: "Bacterial conjunctivitis, Chlamydia felis, Mycoplasma — broad-spectrum antibiotic eye ointment; widely used in rescue",
@@ -1090,7 +666,6 @@ const DB = {
       }
     }
   },
-
   "Tobramycin Ophthalmic Solution": {
     cat: "Ophthalmic (Eye)",
     ind: "Bacterial conjunctivitis — especially gram-negative bacteria; used when erythromycin/Terramycin is not working",
@@ -1104,7 +679,6 @@ const DB = {
       }
     }
   },
-
   "Ciprofloxacin Ophthalmic Solution": {
     cat: "Ophthalmic (Eye)",
     ind: "Bacterial conjunctivitis and corneal ulcers — broad-spectrum fluoroquinolone eye drops",
@@ -1118,7 +692,6 @@ const DB = {
       }
     }
   },
-
   "Trifluridine Ophthalmic Solution (Viroptic)": {
     cat: "Ophthalmic (Eye)",
     ind: "Feline herpesvirus-1 (FHV-1) corneal ulcers — antiviral eye drops for herpetic eye disease",
@@ -1127,12 +700,11 @@ const DB = {
         v:1, t:"L", lo:0, hi:0, u:"fixed",
         freq:"Every 4–6 hours (4–6 times daily) while ulcer is active",
         fixedNote:"TOPICAL ANTIVIRAL EYE DROPS — instill 1 drop into the affected eye(s). Gently hold the eye open. Wipe away any overflow. Wash hands before and after.",
-        notes:"Prescription required. Used specifically for herpesvirus-related corneal ulcers — NOT for routine bacterial conjunctivitis. Most feline URI-related eye disease involves FHV-1, so this may be prescribed alongside antibiotics. Refrigerate. Can sting briefly on application. Do not touch dropper tip to eye.",
+        notes:"Prescription required. Used specifically for herpesvirus-related corneal ulcers — NOT for routine bacterial conjunctivitis. Refrigerate. Can sting briefly on application. Do not touch dropper tip to eye.",
         src:"Pfizer Viroptic prescribing information; Maggs DJ, Slatter's Fundamentals of Veterinary Ophthalmology, 6th Ed.; Plumb's Veterinary Drug Handbook, 10th Ed."
       }
     }
   },
-
   "Idoxuridine Ophthalmic Solution (Compounded)": {
     cat: "Ophthalmic (Eye)",
     ind: "Feline herpesvirus-1 (FHV-1) corneal ulcers — compounded antiviral; alternative to trifluridine",
@@ -1146,7 +718,6 @@ const DB = {
       }
     }
   }
-
 };
 
 // Cat colors
@@ -1166,7 +737,7 @@ function loadTracker() {
   catch(e) { return { cats: [] }; }
 }
 function saveTracker(d) { localStorage.setItem('foster_tracker', JSON.stringify(d)); }
-function dk(date) { return date.toISOString().split('T')[0]; } // "YYYY-MM-DD"
+function dk(date) { return date.toISOString().split('T')[0]; }
 
 // ═══════════════════════════════════════════════════════════
 // INIT
@@ -1222,19 +793,15 @@ function fmt(n) {
 function onMedChange() {
   const med = document.getElementById('med-select').value;
   calc = { med: med || null, conc: null, result: null };
-
   document.getElementById('indication').style.display = 'none';
   document.getElementById('conc-field').style.display = 'none';
   document.getElementById('results-card').style.display = 'none';
   document.getElementById('add-tracker-btn').style.display = 'none';
-
   if (!med) return;
-
   const data = DB[med];
   const indEl = document.getElementById('indication');
   indEl.textContent = data.ind;
   indEl.style.display = 'block';
-
   const concSel = document.getElementById('conc-select');
   const concKeys = Object.keys(data.concs);
   concSel.innerHTML = '<option value="">— Choose concentration —</option>';
@@ -1243,9 +810,7 @@ function onMedChange() {
     o.value = o.textContent = c;
     concSel.appendChild(o);
   });
-
   if (concKeys.length === 1) {
-    // Only one option — auto-select it and hide the dropdown
     concSel.value = concKeys[0];
     document.getElementById('conc-field').style.display = 'none';
     calc.conc = concKeys[0];
@@ -1264,20 +829,14 @@ function recalc() {
   const { med, conc } = calc;
   const resultsCard = document.getElementById('results-card');
   const addBtn = document.getElementById('add-tracker-btn');
-
   if (!med || !conc) { resultsCard.style.display = 'none'; addBtn.style.display = 'none'; return; }
-
   const d = DB[med].concs[conc];
   resultsCard.style.display = 'block';
-
-  // Notes always visible
   const notesEl = document.getElementById('result-notes');
   notesEl.textContent = d.notes;
   notesEl.className = 'note-box' + (d.notes.includes('⚠️') ? ' alert' : '');
   document.getElementById('notes-section').style.display = 'block';
   document.getElementById('result-source').textContent = 'Source: ' + d.src;
-
-  // Fixed dose (Karo)
   if (d.u === 'fixed') {
     document.getElementById('fixed-dose-display').innerHTML = `<div class="note-box alert" style="margin-bottom:10px">${esc(d.fixedNote)}</div>`;
     document.getElementById('fixed-dose-display').style.display = 'block';
@@ -1287,13 +846,10 @@ function recalc() {
     document.getElementById('calc-export-btns').style.display = 'block';
     return;
   }
-
   document.getElementById('fixed-dose-display').style.display = 'none';
   document.getElementById('weight-dose-display').style.display = 'block';
   document.getElementById('result-freq').textContent = d.freq;
-
   const weightKg = toKg(document.getElementById('weight-val').value, document.getElementById('weight-unit').value);
-
   if (!weightKg) {
     document.getElementById('dose-basis').textContent = 'Enter weight above to calculate dose';
     ['low-val','high-val'].forEach(id => document.getElementById(id).textContent = '—');
@@ -1302,9 +858,7 @@ function recalc() {
     calc.result = null;
     return;
   }
-
   let lowStr, highStr, unitStr, lowSub = '', highSub = '', basisStr, trackerLow, trackerHigh, isRange;
-
   if (d.u === 'mL/kg' || d.u === 'mL/kg/day') {
     const lowVol = d.lo * weightKg;
     const highVol = d.hi * weightKg;
@@ -1317,7 +871,6 @@ function recalc() {
     trackerLow  = `${fmt(lowVol)} mL${dayLabel}`;
     trackerHigh = `${fmt(highVol)} mL${dayLabel}`;
   } else {
-    // mg/kg
     const lowMg  = d.lo * weightKg;
     const highMg = d.hi * weightKg;
     const lowVol  = lowMg  / d.v;
@@ -1333,15 +886,13 @@ function recalc() {
     trackerLow  = `${fmt(lowMg)} mg (${fmt(lowVol)} ${volUnit})`;
     trackerHigh = `${fmt(highMg)} mg (${fmt(highVol)} ${d.t === 'T' ? (highVol >= 2 ? 'tablets' : 'tablet') : 'mL'})`;
   }
-
-  document.getElementById('dose-basis').textContent = basisStr;
-  document.getElementById('low-val').textContent   = lowStr;
-  document.getElementById('high-val').textContent  = highStr;
-  document.getElementById('low-unit').textContent  = unitStr;
-  document.getElementById('high-unit').textContent = unitStr;
-  document.getElementById('low-sub').textContent   = lowSub;
-  document.getElementById('high-sub').textContent  = highSub;
-
+  document.getElementById('dose-basis').textContent  = basisStr;
+  document.getElementById('low-val').textContent     = lowStr;
+  document.getElementById('high-val').textContent    = highStr;
+  document.getElementById('low-unit').textContent    = unitStr;
+  document.getElementById('high-unit').textContent   = unitStr;
+  document.getElementById('low-sub').textContent     = lowSub;
+  document.getElementById('high-sub').textContent    = highSub;
   calc.result = { trackerLow, trackerHigh, isRange, freq: d.freq };
   addBtn.style.display = 'block';
   document.getElementById('calc-export-btns').style.display = 'block';
@@ -1362,7 +913,6 @@ function clearCalc() {
   calc = { med: null, conc: null, result: null };
 }
 
-// live kg hint
 document.addEventListener('DOMContentLoaded', () => {
   ['weight-val','weight-unit'].forEach(id => {
     document.getElementById(id).addEventListener('input', () => {
@@ -1407,9 +957,7 @@ function confirmAdd() {
   const dateStarted = document.getElementById('date-started').value || dk(new Date());
   const weightVal = document.getElementById('weight-val').value;
   const weightUnit = document.getElementById('weight-unit').value;
-  const doseChoice = calc.result.isRange
-    ? document.getElementById('modal-dose').value
-    : 'low';
+  const doseChoice = calc.result.isRange ? document.getElementById('modal-dose').value : 'low';
   const doseStr = doseChoice === 'low' ? calc.result.trackerLow : calc.result.trackerHigh;
   const numDays = parseInt(document.getElementById('modal-days').value) || null;
   let endDate = null;
@@ -1418,31 +966,13 @@ function confirmAdd() {
     ed.setDate(ed.getDate() + numDays - 1);
     endDate = dk(ed);
   }
-
   const tracker = loadTracker();
   let cat = tracker.cats.find(c => c.name.toLowerCase() === catName.toLowerCase());
   if (!cat) {
-    cat = {
-      id: 'cat_' + Date.now(),
-      name: catName,
-      weight: weightVal ? `${weightVal} ${weightUnit}` : '',
-      color: COLORS[tracker.cats.length % COLORS.length],
-      meds: []
-    };
+    cat = { id: 'cat_' + Date.now(), name: catName, weight: weightVal ? `${weightVal} ${weightUnit}` : '', color: COLORS[tracker.cats.length % COLORS.length], meds: [] };
     tracker.cats.push(cat);
   }
-  cat.meds.push({
-    id: 'med_' + Date.now(),
-    name: calc.med,
-    conc: calc.conc,
-    dose: doseStr,
-    freq: calc.result.freq,
-    dateStarted,
-    dateEnd: endDate,
-    numDays,
-    doses: {}
-  });
-
+  cat.meds.push({ id: 'med_' + Date.now(), name: calc.med, conc: calc.conc, dose: doseStr, freq: calc.result.freq, dateStarted, dateEnd: endDate, numDays, doses: {} });
   saveTracker(tracker);
   document.getElementById('modal').classList.remove('open');
   renderTracker();
@@ -1452,7 +982,7 @@ function confirmAdd() {
 // ═══════════════════════════════════════════════════════════
 // TRACKER VIEW
 // ═══════════════════════════════════════════════════════════
-const DAYS  = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const DAYS   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
 function shiftDate(delta) {
@@ -1464,82 +994,41 @@ function renderTracker() {
   const today = new Date(); today.setHours(0,0,0,0);
   const isToday = viewDate.getTime() === today.getTime();
   const dateStr = `${MONTHS[viewDate.getMonth()]} ${viewDate.getDate()}, ${viewDate.getFullYear()}`;
-
   document.getElementById('nav-day').textContent  = isToday ? 'Today' : DAYS[viewDate.getDay()];
   document.getElementById('nav-date').textContent = dateStr;
-
   const tracker = loadTracker();
   const el = document.getElementById('tracker-content');
-
   if (!tracker.cats.length) {
-    el.innerHTML = `<div class="empty-state">
-      <div class="empty-icon">🐾</div>
-      <p>No cats in the tracker yet.<br>Calculate a dose and tap<br><strong>Add to Treatment Tracker</strong>.</p>
-    </div>`;
+    el.innerHTML = `<div class="empty-state"><div class="empty-icon">🐾</div><p>No cats in the tracker yet.<br>Calculate a dose and tap<br><strong>Add to Treatment Tracker</strong>.</p></div>`;
     return;
   }
-
   const dKey = dk(viewDate);
   let html = '';
-
   for (const cat of tracker.cats) {
-    html += `<div class="cat-card">
-      <div class="cat-hdr" style="background:${cat.color}">
-        <span class="cat-hdr-name">🐱 ${esc(cat.name)}${cat.weight ? '  ·  ' + esc(cat.weight) : ''}</span>
-        <button class="cat-hdr-del" onclick="delCat('${cat.id}')">✕</button>
-      </div>
-      <div class="cat-body">`;
-
+    html += `<div class="cat-card"><div class="cat-hdr" style="background:${cat.color}"><span class="cat-hdr-name">🐱 ${esc(cat.name)}${cat.weight ? '  ·  ' + esc(cat.weight) : ''}</span><button class="cat-hdr-del" onclick="delCat('${cat.id}')">✕</button></div><div class="cat-body">`;
     if (!cat.meds.length) {
       html += `<div class="med-row" style="color:var(--muted);font-size:13px">No medications</div>`;
     }
-
     for (const med of cat.meds) {
       const doses = med.doses[dKey] || {};
       const slotCount = getDoseCount(med.freq);
       const times = doses.times || [];
-
       let dateInfo = '';
       if (med.dateStarted) {
         const start = new Date(med.dateStarted + 'T00:00:00');
         const dayNum = Math.round((viewDate - start) / 86400000) + 1;
         dateInfo = med.dateEnd
-          ? `${fmtDateShort(med.dateStarted)} → ${fmtDateShort(med.dateEnd)}` +
-            (med.numDays && dayNum >= 1 && dayNum <= med.numDays ? ` · day ${dayNum}/${med.numDays}` : '')
+          ? `${fmtDateShort(med.dateStarted)} → ${fmtDateShort(med.dateEnd)}` + (med.numDays && dayNum >= 1 && dayNum <= med.numDays ? ` · day ${dayNum}/${med.numDays}` : '')
           : `Started ${fmtDateShort(med.dateStarted)}`;
       }
-
       let slotsHtml = '';
       for (let i = 0; i < slotCount; i++) {
         const val = times[i] || '';
         const given = val.trim() !== '';
         const label = slotCount === 1 ? 'Time given' : `Dose ${i+1} time`;
-        slotsHtml += `
-          <div class="time-slot ${given ? 'given' : ''}">
-            <span class="time-slot-label">${given ? '✓' : '○'} ${label}</span>
-            <input class="time-input" type="text" placeholder="e.g. 8:30 AM"
-              value="${esc(val)}"
-              onchange="saveDoseTime('${cat.id}','${med.id}',${i},this.value)"
-              onclick="this.select()">
-          </div>`;
+        slotsHtml += `<div class="time-slot ${given ? 'given' : ''}"><span class="time-slot-label">${given ? '✓' : '○'} ${label}</span><input class="time-input" type="text" placeholder="e.g. 8:30 AM" value="${esc(val)}" onchange="saveDoseTime('${cat.id}','${med.id}',${i},this.value)" onclick="this.select()"></div>`;
       }
-
-      html += `<div class="med-row">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start">
-          <div style="flex:1">
-            <div class="med-name">${esc(med.name)}</div>
-            <div class="med-dose">${esc(med.dose)}</div>
-            <div class="med-sched">${esc(med.freq)}</div>
-            ${dateInfo ? `<div class="med-dates">${esc(dateInfo)}</div>` : ''}
-            ${med.notes ? `<div class="med-foster-notes">${esc(med.notes)}</div>` : ''}
-          </div>
-          <div style="display:flex;gap:6px;margin-left:8px;flex-shrink:0">
-            <button class="icon-btn" onclick="openEditMed('${cat.id}','${med.id}')" title="Edit">✏️</button>
-            <button class="icon-btn red" onclick="delMed('${cat.id}','${med.id}')" title="Remove">✕</button>
-          </div>
-        </div>
-        <div class="time-slots">${slotsHtml}</div>
-      </div>`;
+      html += `<div class="med-row"><div style="display:flex;justify-content:space-between;align-items:flex-start"><div style="flex:1"><div class="med-name">${esc(med.name)}</div><div class="med-dose">${esc(med.dose)}</div><div class="med-sched">${esc(med.freq)}</div>${dateInfo ? `<div class="med-dates">${esc(dateInfo)}</div>` : ''}${med.notes ? `<div class="med-foster-notes">${esc(med.notes)}</div>` : ''}</div><div style="display:flex;gap:6px;margin-left:8px;flex-shrink:0"><button class="icon-btn" onclick="openEditMed('${cat.id}','${med.id}')" title="Edit">✏️</button><button class="icon-btn red" onclick="delMed('${cat.id}','${med.id}')" title="Remove">✕</button></div></div><div class="time-slots">${slotsHtml}</div></div>`;
     }
     html += '</div></div>';
   }
@@ -1571,11 +1060,9 @@ function saveDoseTime(catId, medId, slotIndex, value) {
   if (!med.doses[dKey].times) med.doses[dKey].times = [];
   med.doses[dKey].times[slotIndex] = value.trim();
   saveTracker(t);
-  // Re-render just the slot styling without full re-render (avoids losing focus)
   renderTracker();
 }
 
-// ── Edit medication modal ──
 let _editTarget = null;
 
 function openEditMed(catId, medId) {
@@ -1645,18 +1132,14 @@ function switchTab(tab) {
   if (tab === 'tracker') renderTracker();
 }
 
-// XSS escape
 function esc(str) {
-  return String(str ?? '')
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  return String(str ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
 
 // ═══════════════════════════════════════════════════════════
 // CUSTOM TRACKER ITEM
 // ═══════════════════════════════════════════════════════════
 function openCustomModal() {
-  // Populate cat datalist with existing cats
   const tracker = loadTracker();
   const dl = document.getElementById('existing-cats');
   dl.innerHTML = tracker.cats.map(c => `<option value="${esc(c.name)}">`).join('');
@@ -1680,50 +1163,24 @@ function confirmCustomItem() {
   const itemName = document.getElementById('custom-name').value.trim();
   if (!catName) { alert('Please enter a cat name.'); return; }
   if (!itemName) { alert('Please enter what to give or do.'); return; }
-
   const dose    = document.getElementById('custom-dose').value.trim();
   const freq    = document.getElementById('custom-freq').value;
   const notes   = document.getElementById('custom-notes').value.trim();
   const numDays = parseInt(document.getElementById('custom-days').value) || null;
   const dateStarted = dk(new Date());
   let dateEnd = null;
-  if (numDays) {
-    const ed = new Date(); ed.setDate(ed.getDate() + numDays - 1);
-    dateEnd = dk(ed);
-  }
-
+  if (numDays) { const ed = new Date(); ed.setDate(ed.getDate() + numDays - 1); dateEnd = dk(ed); }
   const tracker = loadTracker();
   let cat = tracker.cats.find(c => c.name.toLowerCase() === catName.toLowerCase());
   if (!cat) {
     cat = { id:'cat_'+Date.now(), name:catName, weight:'', color:COLORS[tracker.cats.length % COLORS.length], meds:[] };
     tracker.cats.push(cat);
   }
-  cat.meds.push({
-    id: 'med_'+Date.now(),
-    name: itemName,
-    conc: '',
-    dose: dose,
-    freq: freq,
-    notes: notes,
-    dateStarted,
-    dateEnd,
-    numDays,
-    doses: {},
-    isCustom: true
-  });
-
+  cat.meds.push({ id:'med_'+Date.now(), name:itemName, conc:'', dose, freq, notes, dateStarted, dateEnd, numDays, doses:{}, isCustom:true });
   saveTracker(tracker);
   document.getElementById('custom-modal').classList.remove('open');
   renderTracker();
   switchTab('tracker');
-}
-
-// ═══════════════════════════════════════════════════════════
-// SHOW/HIDE CALC EXPORT BUTTONS
-// ═══════════════════════════════════════════════════════════
-function updateCalcExportVisibility() {
-  const exportDiv = document.getElementById('calc-export-btns');
-  if (exportDiv) exportDiv.style.display = calc.result ? 'block' : 'none';
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -1746,14 +1203,12 @@ function safeFilename(str) {
 function exportCalcExcel() {
   if (!window.XLSX) { alert('Excel library loading — try again in a moment.'); return; }
   if (!calc.result) { alert('Calculate a dose first.'); return; }
-
   const catName    = document.getElementById('cat-name').value || 'Unknown';
   const dateStart  = document.getElementById('date-started').value || '';
   const weightVal  = document.getElementById('weight-val').value || '';
   const weightUnit = document.getElementById('weight-unit').value || '';
   const medName    = calc.med || '';
   const concName   = calc.conc || '';
-  const medData    = DB[medName]?.concs[concName];
   const indication = DB[medName]?.ind || '';
   const lowVal     = document.getElementById('low-val').textContent;
   const highVal    = document.getElementById('high-val').textContent;
@@ -1764,7 +1219,6 @@ function exportCalcExcel() {
   const notes      = document.getElementById('result-notes').textContent;
   const source     = document.getElementById('result-source').textContent;
   const kgHint     = document.getElementById('kg-hint').textContent;
-
   const rows = [
     ['Field', 'Value'],
     ['Cat Name', catName],
@@ -1783,7 +1237,6 @@ function exportCalcExcel() {
     [],
     ['⚠️ Reference tool only — confirm all doses with your rescue org or veterinarian.', '']
   ];
-
   const ws = XLSX.utils.aoa_to_sheet(rows);
   ws['!cols'] = [{wch: 24}, {wch: 70}];
   const wb = XLSX.utils.book_new();
@@ -1796,7 +1249,6 @@ function exportCalcExcel() {
 // ═══════════════════════════════════════════════════════════
 function exportCalcWord() {
   if (!calc.result) { alert('Calculate a dose first.'); return; }
-
   const catName    = document.getElementById('cat-name').value || 'Unknown';
   const dateStart  = document.getElementById('date-started').value || '';
   const weightVal  = document.getElementById('weight-val').value || '';
@@ -1813,46 +1265,23 @@ function exportCalcWord() {
   const freq       = document.getElementById('result-freq').textContent;
   const notes      = document.getElementById('result-notes').textContent;
   const source     = document.getElementById('result-source').textContent;
-
   const row = (label, val) => `<tr><td style="font-weight:bold;padding:6px 12px 6px 0;width:160px;vertical-align:top;color:#555">${label}</td><td style="padding:6px 0">${val}</td></tr>`;
-
-  const html = `
-<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
+  const html = `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
 <head><meta charset="UTF-8"><title>Dose Calculation</title>
-<style>
-  body { font-family: Calibri, Arial, sans-serif; font-size: 11pt; margin: 1in; }
-  h1 { color: #1A3A5C; font-size: 16pt; border-bottom: 2px solid #0E6655; padding-bottom: 6px; }
-  h2 { color: #0E6655; font-size: 12pt; margin-top: 18px; margin-bottom: 4px; }
-  table { border-collapse: collapse; width: 100%; }
-  .dose-box { display: inline-block; background: #D1F2EB; border-radius: 6px; padding: 8px 16px; margin-right: 12px; text-align: center; }
-  .dose-val { font-size: 18pt; font-weight: bold; color: #0E6655; }
-  .warn { background: #FFF3CD; border-left: 4px solid #D4AC0D; padding: 10px 14px; margin-top: 12px; font-size: 10pt; color: #7D5A00; }
-  .disclaimer { background: #FDEDEC; border-left: 4px solid #C0392B; padding: 10px 14px; margin-top: 16px; font-size: 10pt; color: #641E16; }
-</style></head>
+<style>body{font-family:Calibri,Arial,sans-serif;font-size:11pt;margin:1in;}h1{color:#1A3A5C;font-size:16pt;border-bottom:2px solid #0E6655;padding-bottom:6px;}h2{color:#0E6655;font-size:12pt;margin-top:18px;margin-bottom:4px;}table{border-collapse:collapse;width:100%;}.dose-box{display:inline-block;background:#D1F2EB;border-radius:6px;padding:8px 16px;margin-right:12px;text-align:center;}.dose-val{font-size:18pt;font-weight:bold;color:#0E6655;}.warn{background:#FFF3CD;border-left:4px solid #D4AC0D;padding:10px 14px;margin-top:12px;font-size:10pt;color:#7D5A00;}.disclaimer{background:#FDEDEC;border-left:4px solid #C0392B;padding:10px 14px;margin-top:16px;font-size:10pt;color:#641E16;}</style></head>
 <body>
 <h1>🐱 Foster Cat Dose Calculation</h1>
-<h2>Cat Information</h2>
-<table>
-  ${row('Cat Name', catName)}
-  ${row('Date Started', dateStart)}
-  ${row('Weight', `${weightVal} ${weightUnit}${kgHint ? ' (' + kgHint + ')' : ''}`)}
-</table>
-<h2>Medication</h2>
-<table>
-  ${row('Medication', medName)}
-  ${row('Concentration / Form', concName)}
-  ${row('Indication', `<em>${indication}</em>`)}
-</table>
+<h2>Cat Information</h2><table>${row('Cat Name',catName)}${row('Date Started',dateStart)}${row('Weight',`${weightVal} ${weightUnit}${kgHint?' ('+kgHint+')':''}`)}</table>
+<h2>Medication</h2><table>${row('Medication',medName)}${row('Concentration / Form',concName)}${row('Indication',`<em>${indication}</em>`)}</table>
 <h2>Calculated Dose</h2>
 <div style="margin:10px 0;">
-  <div class="dose-box"><div style="font-size:9pt;color:#555;margin-bottom:2px">LOW DOSE</div><div class="dose-val">${lowVal} ${lowUnit}</div>${lowSub ? `<div style="font-size:9pt;color:#555">${lowSub}</div>` : ''}</div>
-  <div class="dose-box" style="background:#FAE5D3;"><div style="font-size:9pt;color:#555;margin-bottom:2px">HIGH DOSE</div><div class="dose-val" style="color:#D35400">${highVal} ${lowUnit}</div>${highSub ? `<div style="font-size:9pt;color:#555">${highSub}</div>` : ''}</div>
+  <div class="dose-box"><div style="font-size:9pt;color:#555;margin-bottom:2px">LOW DOSE</div><div class="dose-val">${lowVal} ${lowUnit}</div>${lowSub?`<div style="font-size:9pt;color:#555">${lowSub}</div>`:''}</div>
+  <div class="dose-box" style="background:#FAE5D3;"><div style="font-size:9pt;color:#555;margin-bottom:2px">HIGH DOSE</div><div class="dose-val" style="color:#D35400">${highVal} ${lowUnit}</div>${highSub?`<div style="font-size:9pt;color:#555">${highSub}</div>`:''}</div>
 </div>
-<table style="margin-top:10px">${row('Frequency', freq)}</table>
+<table style="margin-top:10px">${row('Frequency',freq)}</table>
 <div class="warn"><strong>Notes:</strong> ${notes}<br><br><em>${source}</em></div>
 <div class="disclaimer">⚠️ Reference tool only. Always confirm doses with your rescue organization or veterinarian before administering.</div>
 </body></html>`;
-
   const blob = new Blob([html], { type: 'application/msword' });
   downloadBlob(blob, `DoseCalc_${safeFilename(catName)}_${safeFilename(medName)}.doc`);
 }
@@ -1864,10 +1293,7 @@ function exportTrackerExcel() {
   if (!window.XLSX) { alert('Excel library loading — try again in a moment.'); return; }
   const tracker = loadTracker();
   if (!tracker.cats.length) { alert('No tracker data to export.'); return; }
-
   const wb = XLSX.utils.book_new();
-
-  // Sheet 1: Summary
   const sumRows = [['Cat', 'Weight', 'Medication', 'Dose', 'Frequency', 'Date Started', 'Date End', 'Duration (days)']];
   for (const cat of tracker.cats) {
     for (const med of cat.meds) {
@@ -1877,25 +1303,18 @@ function exportTrackerExcel() {
   const wsSummary = XLSX.utils.aoa_to_sheet(sumRows);
   wsSummary['!cols'] = [{wch:16},{wch:10},{wch:28},{wch:20},{wch:28},{wch:14},{wch:12},{wch:16}];
   XLSX.utils.book_append_sheet(wb, wsSummary, 'Medications');
-
-  // Sheet 2: Dose Log (last 14 days)
   const today = new Date(); today.setHours(0,0,0,0);
   const dates = [];
-  for (let i = 13; i >= 0; i--) {
-    const d = new Date(today); d.setDate(d.getDate() - i);
-    dates.push(d);
-  }
+  for (let i = 13; i >= 0; i--) { const d = new Date(today); d.setDate(d.getDate() - i); dates.push(d); }
   const logHeader = ['Cat', 'Medication', 'Notes', ...dates.map(d => `${d.getMonth()+1}/${d.getDate()}`)];
   const logRows = [logHeader];
   for (const cat of tracker.cats) {
     for (const med of cat.meds) {
-      const slotCount = getDoseCount(med.freq);
       const row = [cat.name, med.name, med.notes || ''];
       for (const d of dates) {
         const key = dk(d);
         const times = (med.doses[key] || {}).times || [];
-        const given = times.filter(t => t && t.trim()).join(' / ');
-        row.push(given || '');
+        row.push(times.filter(t => t && t.trim()).join(' / ') || '');
       }
       logRows.push(row);
     }
@@ -1903,7 +1322,6 @@ function exportTrackerExcel() {
   const wsLog = XLSX.utils.aoa_to_sheet(logRows);
   wsLog['!cols'] = [{wch:16},{wch:24},{wch:28},...dates.map(() => ({wch:14}))];
   XLSX.utils.book_append_sheet(wb, wsLog, 'Dose Log (14 days)');
-
   XLSX.writeFile(wb, `FosterCat_Tracker_${safeFilename(dk(today))}.xlsx`);
 }
 
@@ -1913,14 +1331,9 @@ function exportTrackerExcel() {
 function exportTrackerWord() {
   const tracker = loadTracker();
   if (!tracker.cats.length) { alert('No tracker data to export.'); return; }
-
   const today = new Date(); today.setHours(0,0,0,0);
   const dates = [];
-  for (let i = 13; i >= 0; i--) {
-    const d = new Date(today); d.setDate(d.getDate() - i);
-    dates.push(d);
-  }
-
+  for (let i = 13; i >= 0; i--) { const d = new Date(today); d.setDate(d.getDate() - i); dates.push(d); }
   let catsHtml = '';
   for (const cat of tracker.cats) {
     let medsHtml = '';
@@ -1928,38 +1341,26 @@ function exportTrackerWord() {
       const dateInfo = med.dateEnd
         ? `${med.dateStarted} → ${med.dateEnd}${med.numDays ? ' (' + med.numDays + ' days)' : ''}`
         : med.dateStarted ? `Started ${med.dateStarted}` : '';
-
-      let gridCols = dates.map(d => `<th style="font-size:8pt;padding:3px 6px;border:1px solid #ccc;text-align:center">${d.getMonth()+1}/${d.getDate()}</th>`).join('');
+      let gridCols  = dates.map(d => `<th style="font-size:8pt;padding:3px 6px;border:1px solid #ccc;text-align:center">${d.getMonth()+1}/${d.getDate()}</th>`).join('');
       let gridCells = dates.map(d => {
         const key = dk(d);
         const times = (med.doses[key] || {}).times || [];
         const given = times.filter(t => t && t.trim()).join(' / ');
         return `<td style="border:1px solid #ccc;text-align:center;padding:3px 6px;font-size:9pt">${given || '&nbsp;'}</td>`;
       }).join('');
-
-      medsHtml += `
-        <div style="margin-bottom:14px;padding:10px 14px;border:1px solid #ddd;border-radius:6px;">
-          <div style="font-weight:bold;font-size:11pt">${med.name}</div>
-          <div style="color:#555;font-size:10pt">${med.dose} &nbsp;·&nbsp; ${med.freq}</div>
-          ${dateInfo ? `<div style="color:#0E6655;font-size:10pt">${dateInfo}</div>` : ''}
-          ${med.notes ? `<div style="color:#7D5A00;font-style:italic;font-size:10pt;margin-top:2px">Note: ${med.notes}</div>` : ''}
-          <table style="margin-top:8px;border-collapse:collapse;font-size:9pt"><tr><th style="border:1px solid #ccc;padding:3px 4px"></th>${gridCols}</tr><tr><td style="border:1px solid #ccc;padding:3px 6px;font-size:9pt;font-weight:bold">Dose given</td>${gridCells}</tr></table>
-        </div>`;
+      medsHtml += `<div style="margin-bottom:14px;padding:10px 14px;border:1px solid #ddd;border-radius:6px;"><div style="font-weight:bold;font-size:11pt">${med.name}</div><div style="color:#555;font-size:10pt">${med.dose} &nbsp;·&nbsp; ${med.freq}</div>${dateInfo?`<div style="color:#0E6655;font-size:10pt">${dateInfo}</div>`:''} ${med.notes?`<div style="color:#7D5A00;font-style:italic;font-size:10pt;margin-top:2px">Note: ${med.notes}</div>`:''}<table style="margin-top:8px;border-collapse:collapse;font-size:9pt"><tr><th style="border:1px solid #ccc;padding:3px 4px"></th>${gridCols}</tr><tr><td style="border:1px solid #ccc;padding:3px 6px;font-size:9pt;font-weight:bold">Dose given</td>${gridCells}</tr></table></div>`;
     }
-    catsHtml += `<h2 style="color:white;background:#1A3A5C;padding:8px 14px;border-radius:6px;margin-top:20px">🐱 ${cat.name}${cat.weight ? '  ·  ' + cat.weight : ''}</h2>${medsHtml}`;
+    catsHtml += `<h2 style="color:white;background:#1A3A5C;padding:8px 14px;border-radius:6px;margin-top:20px">🐱 ${cat.name}${cat.weight?'  ·  '+cat.weight:''}</h2>${medsHtml}`;
   }
-
-  const html = `
-<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
+  const html = `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
 <head><meta charset="UTF-8"><title>Treatment Tracker</title>
 <style>body{font-family:Calibri,Arial,sans-serif;font-size:11pt;margin:0.75in;}h1{color:#1A3A5C;font-size:16pt;border-bottom:2px solid #0E6655;padding-bottom:6px;}</style>
 </head><body>
 <h1>🐱 Foster Cat Treatment Tracker</h1>
-<p style="color:#555;font-size:10pt">Exported: ${today.toLocaleDateString()}  &nbsp;·&nbsp; Dose log shows last 14 days (✓ = given)</p>
+<p style="color:#555;font-size:10pt">Exported: ${today.toLocaleDateString()}  &nbsp;·&nbsp; Dose log shows last 14 days</p>
 ${catsHtml}
 <p style="margin-top:24px;font-size:9pt;color:#999">⚠️ Reference tool only. Always confirm doses with your rescue organization or veterinarian.</p>
 </body></html>`;
-
   const blob = new Blob([html], { type: 'application/msword' });
   downloadBlob(blob, `FosterCat_Tracker_${safeFilename(dk(today))}.doc`);
 }
